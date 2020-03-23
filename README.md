@@ -10,7 +10,7 @@
 
 `GIF`
 
-![Appvid.gif](hhttps://github.com/thedooors/showroom/blob/master/Appvid.gif)
+![Appvid.gif](https://github.com/thedooors/showroom/blob/master/Appvid.gif)
 
 `SCREENSHOT`
 
