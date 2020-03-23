@@ -1,0 +1,78 @@
+/*
+ * This is the CSS stylesheet for the demo content application
+ */
+
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,300,500,700);
+
+body, .ui-btn {
+    font-family: Roboto;
+}
+
+.container {
+    padding: 10px;
+}
+
+.banner {
+    text-align: center;
+}
+
+.editor {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+    margin-bottom: 5px;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+button {
+    padding: 5px;
+    margin-right: 5px;
+    border-radius: 3px;
+    background-color: #eee;
+}
+
+.shows {
+    padding: 1px;
+}
+
+table {
+    font-weight: bold;
+}
+
+table, caption, th, td {
+    font-weight: bold;
+}
+
+table caption {
+    font-weight: bold;
+}
+
+tr {
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f0f0f0
+}
+
+td {
+    text-align: center;
+}
+
+.error {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+    background-color: #fbb;
+    visibility: hidden;
+}

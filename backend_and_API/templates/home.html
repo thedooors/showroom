@@ -1,0 +1,181 @@
+{% extends 'template.html' %}
+{% block styles %}
+  <!-- Custom fonts for this template-->
+  <link href="static/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="static/css/sb-admin-2.min.css" rel="stylesheet">
+  <script src="static/vendor/jquery/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+{% endblock %}
+{% block content %}
+
+    <div class="container">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Добавить контент</h6>
+        </div>
+        <div class="card-body">
+        <div class="section editor">
+            <input id="content_id" type="hidden" value="" />
+            <label for="year">Название (Ru)
+                <input id="year" type="text" />
+            </label>
+            <br />
+            <label for="title">Название (Eng)
+                <input id="title" type="text" />
+            </label>
+            <br />
+            <label for="selectservice">Сервис
+                <select id="selectservice">
+                    <option value="FX">FX</option>
+                    <option value="NETFLIX">Netflix</option>
+                    <option value="AMC">AMC</option>
+                    <option value="HBO-GO">HBO Go</option>
+                    <option value="AMAZON">Amazon Prime</option>
+                    <option value="SHOWTIME">ShowTime</option>
+                    <option value="DISNEY">Disney +</option>
+                    <option value="APPLE">Apple TV</option>
+                    <option value="CW">CW</option>
+                    <option value="ABC">ABC</option>
+                    <option value="SCY-FI">ScyFi</option>
+                    <option value="BBC">BBC One</option>
+                    <option value="CBS">CBS</option>
+                    <option value="OTHERS">OTHERS</option>
+                    <option value="СЕЙЧАС">СЕЙЧАС</option>
+                </select>
+            </label>
+            <br />
+            <label for="restrict">RARS
+                <select id="restrict">
+                    <option value="0">0+</option>
+                    <option value="6">6+</option>
+                    <option value="12">12+</option>
+                    <option value="16">16+</option>
+                    <option value="18">18+</option>
+                </select>
+            </label>
+            <br />
+            <label for="season">Сезон
+                <input id="season" type="text" maxlength="56"/>
+            </label>
+            <br />
+            <label for="duration">Трейлер
+                <input id="duration" type="url" maxlength="500"/>
+            </label>
+            <br />
+            <label for="rating">Rating
+                <select id="rating">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </label>
+            <br />
+            <label for="kp_rating">Состояние
+                <select id="kp_rating">
+                    <option value="PREMIERE">Премьера</option>
+                    <option value="GO">Идет</option>
+                    <option value="FREEZE">Заморожен</option>
+                    <option value="END">Завершен</option>
+                    <option value="NOW">Есть на ТВ</option>
+                </select>
+            </label>
+            <br />
+            <label for="imdb_rating">В ролях
+                <textarea id="imdb_rating" rows="4" cols="50" maxlength="500"></textarea>
+            </label>
+            <br />
+            <label for="description">Описание
+                    <textarea id="description" rows="4" cols="50" maxlength="1000"></textarea>
+            </label>
+            <br />
+            <label for="background">Реклама
+                <input id="background" type="url" maxlength="500"/>
+            </label>
+            <br />
+            <label for="poster">Постер
+                <input id="poster" type="url" maxlength="500"/>
+            </label>
+            <br />
+            <label for="whenontv">Когда по ТВ? (График выхода)
+                    <textarea id="whenontv" rows="4" cols="50" maxlength="500"></textarea>
+            </label>
+            <br />
+            <button id="create" class="btn btn-success btn-icon-split">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-check"></i>
+                    </span>
+                    <span class="text">Создать</span>
+                </button>
+            <button id="update" class="btn btn-info btn-icon-split">
+                        <span class="icon text-white-50">
+                          <i class="fas fa-edit"></i>
+                        </span>
+                        <span class="text">Изменить</span>
+                    </button>
+            <button id="delete" class="btn btn-danger btn-icon-split">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-trash"></i>
+                    </span>
+                    <span class="text">Удалить</span>
+                </button>
+            <button id="reset" class="btn btn-secondary btn-icon-split">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-backward"></i>
+                    </span>
+                    <span class="text">Очистить</span>
+                </button>
+        </div>
+    </div>
+    </div>
+
+    <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Вся база данных</h6>
+            </div>
+        <div class="card-body">
+        <div class="table-responsive">
+                <div class="shows">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Постер</th>
+                        <th>RuName</th>
+                        <th>EngName</th>
+                        <th>RARS</th>
+                        <th>Сервис</th>
+                        <th>Сез/Сер</th>
+                        <th>Трейлер</th>
+                        <th>Рейтинг</th>
+                        <th>Состояние</th>
+                        <th>В ролях</th>
+                        <th>Описание</th>
+                        <th>Фон</th>
+                        <th>Когда</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            </div>
+        </div>
+        </div>
+    </div>
+        <div class="error">
+        </div>
+    </div>
+    {% endblock %}
+    {% block scripts %}
+    <script src="static/js/home.js"></script>
+  <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="static/js/sb-admin-2.min.js"></script>
+    {% endblock %}

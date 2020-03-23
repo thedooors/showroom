@@ -1,0 +1,5 @@
+{
+	"id": "favshow",
+	"display": { "name": "SHOWROOM", "icon": "resources/icon.png" },
+	"application": { }
+}
