@@ -14,7 +14,7 @@
 
 `SCREENSHOT`
 
-![Screenshot](https://i.ibb.co/wykhyf1/2020-03-23-21-37-37.png)
+![Screenshot](https://i.ibb.co/fp7FWYQ/Deepin-Screenshot-select-area-20200825113059.png)
 
 ### Контент-менеджмент и модерация (Flask, jQuery) - папка backend_and_API
 
@@ -27,10 +27,13 @@ API обладает всем спектром запросов GET, POST, PUT, 
 
 ![APIImage](https://i.ibb.co/ZJmVLsS/2020-03-23-22-08-18.png) 
 
+
+### Мобильное приложение компаньон (ShowroomApp.apk)
+Просто использует функционал API.
 `Скриншоты`
 
 ![Screen1](https://i.ibb.co/wykhyf1/2020-03-23-21-37-37.png)
 ![Screen2](https://i.ibb.co/9tjqC7j/2020-03-23-21-38-53.png)
 
 `PS`
-Ссылка на панель управления контентом - http://clever-passage-244005.appspot.com/ (в данный момент мы тестируем скрэппинг скрипты, возможно, БД будет отображена не вся или неверно). API - http://clever-passage-244005.appspot.com/api/ui/
+Ссылка на панель управления контентом - http://35.228.3.191:9090/
