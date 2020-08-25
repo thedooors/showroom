@@ -33,7 +33,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url_for('home') }}">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-tv"></i>
         </div>
@@ -45,7 +45,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="{{ url_for('home') }}">
           <i class="fas fa-fw fa-table"></i>
           <span>Контент панель</span></a>
       </li>
@@ -62,40 +62,50 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Стриминг:</h6>
-            <a class="collapse-item" href="#">Netflix</a>
-            <a class="collapse-item" href="#">Amazon Prime</a>
-            <a class="collapse-item" href="#">HBO Originals</a>
-            <a class="collapse-item" href="#">Disney Plus</a>
-            <a class="collapse-item" href="#">Apple TV</a>
+            <a class="collapse-item" href="{{ url_for('streamservice', service_name='NETFLIX') }}">Netflix</a>
+            <a class="collapse-item" href="{{ url_for('streamservice', service_name='AMAZON') }}">Amazon Prime</a>
+            <a class="collapse-item" href="{{ url_for('streamservice', service_name='HBO') }}">HBO Go</a>
+            <a class="collapse-item" href="{{ url_for('streamservice', service_name='DISNEY') }}">Disney Plus</a>
+            <a class="collapse-item" href="{{ url_for('streamservice', service_name='APPLE-TV') }}">Apple TV</a>
+            <a class="collapse-item" href="{{ url_for('streamservice', service_name='HULU') }}">Hulu</a>
             <h6 class="collapse-header">Кабельное:</h6>
-            <a class="collapse-item" href="#">FX</a>
-            <a class="collapse-item" href="#">AMC</a>
-            <a class="collapse-item" href="#">HBO</a>
-            <a class="collapse-item" href="#">Showtime</a>
-            <a class="collapse-item" href="#">CW</a>
-            <a class="collapse-item" href="#">Others</a>
+            <a class="collapse-item" href="{{ url_for('streamservice', service_name='FX') }}">FX</a>
+            <a class="collapse-item" href="{{ url_for('streamservice', service_name='AMC') }}">AMC</a>
+            <a class="collapse-item" href="{{ url_for('streamservice', service_name='CBS') }}">CBS</a>
+            <a class="collapse-item" href="{{ url_for('streamservice', service_name='SHOWTIME') }}">Showtime</a>
+            <a class="collapse-item" href="{{ url_for('streamservice', service_name='THE-CW') }}">CW</a>
+            <a class="collapse-item" href="{{ url_for('streamservice', service_name='FOX') }}">FOX</a>
+            <a class="collapse-item" href="{{ url_for('streamservice', service_name='SYFY') }}">SyFy</a>
+            <a class="collapse-item" href="{{ url_for('streamservice', service_name='ABC') }}">ABC</a>
+            <a class="collapse-item" href="{{ url_for('streamservice', service_name='BBC') }}">BBC</a>
           </div>
         </div>
       </li>
-
-      <!-- Nav Item - Charts -->
+      
       <li class="nav-item">
-        <a class="nav-link" href="#">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Настройки</span></a>
+        <a class="nav-link" href="{{ url_for('users_info') }}">
+          <i class="fas fa-fw fa-users"></i>
+          <span>Пользователи</span></a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('analytics') }}">
+          <i class="fas fa-fw fa-sitemap"></i>
+          <span>Аналитика</span></a>
       </li>
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" id="apiuilink" href="#">
+        <a class="nav-link" id="apiuilink" href="{{ url_for('/api./api_swagger_ui_index') }}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>REST UI</span></a>
       </li>
-      <script type="text/javascript">
-        window.onload = function(){
-            document.getElementById("apiuilink").href = window.location.toString() + "api/ui";
-        }
-      </script>
+      
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('logout') }}">
+          <i class="fas fa-window-close fa-cog"></i>
+          <span>Выход</span></a>
+      </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">

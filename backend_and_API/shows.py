@@ -5,6 +5,7 @@ shows.py содержит функции REST запросов, которые �
 from flask import make_response, abort
 from config import db
 from models import Content, ContentSchema
+from models import AppUsers, AppUsersSchema
 
 
 def read_all():
@@ -12,7 +13,7 @@ def read_all():
     Запрос /api/shows - возвращает все строки из бд в json формате
     """
     # Создаем список сериалов из наших данных
-    content = Content.query.order_by(Content.content_id).all()
+    content = Content.query.order_by(Content.content_id.desc()).all()
 
     # Сериализуем данные для ответа
     content_schema = ContentSchema(many=True)
@@ -39,20 +40,54 @@ def read_one(content_id):
     else:
         abort(
             404,
-            "Сериала с данным id не найдено: {content_id}".format(content_id=content_id),
+            "Show with this id not found: {content_id}".format(content_id=content_id),
         )
 
+def read_from_string_array(string_array_waitlist):
+    """
+    Запрос /api/shows/string_array/{string_array_waitlist} - возвращает контент по массиву id
+    """
+    # Запрос по id
+    try:
+        array_waitlist = [int(s) for s in string_array_waitlist.split(',')]
+    except ValueError:
+        abort(
+            404,
+            "Waitlist empty or wrong format. Format of waitlist string should be - 1,2,3,4,5 etc",
+        )
+    except AttributeError:
+        abort(
+            404,
+            "Waitlist empty or wrong format. Format of waitlist string should be - 1,2,3,4,5 etc",
+        )
+
+    content = Content.query.filter(Content.content_id.in_(array_waitlist)).all()
+
+    # Проверка на наличие id
+    if content is not None:
+
+        # Сериализация
+        content_schema = ContentSchema(many=True)
+        data = content_schema.dump(content).data
+        return data
+
+    # Ошибка, если нет
+    else:
+        abort(
+            404,
+            "Empty show list with this IDs",
+        )
 
 def create(content):
     """
-     Создает новую строку на основе отправленных данных (201 - ок, 406 - уже есть)
+     Создает новую строку на основе отправленных данных (201 - ок, 409 - уже есть)
     """
-    year = content.get("year")
     title = content.get("title")
+    title_season = content.get("title_season")
 
     existing_content = (
-        Content.query.filter(Content.year == year)
-        .filter(Content.title == title)
+        Content.query.filter(Content.title == title)
+        .filter(Content.title_season == title_season)
         .one_or_none()
     )
 
@@ -74,8 +109,8 @@ def create(content):
     else:
         abort(
             409,
-            "Сериал {year} {title} уже добавлен, попробуйте изменить информацию".format(
-                year=year, title=title
+            "Сериал {title} {title_season} уже добавлен, попробуйте изменить информацию".format(
+                title=title, title_season=title_season
             ),
         )
 
@@ -91,12 +126,12 @@ def update(content_id, content):
     update_content = Content.query.filter(
         Content.content_id == content_id
     ).one_or_none()
-    year = content.get("year")
     title = content.get("title")
+    title_season = content.get("title_season")
 
     existing_content = (
-        Content.query.filter(Content.year == year)
-        .filter(Content.title == title)
+        Content.query.filter(Content.title == title)
+        .filter(Content.title_season == title_season)
         .one_or_none()
     )
 
@@ -110,8 +145,8 @@ def update(content_id, content):
     ):
         abort(
             409,
-            "Такой же сериал - {year} {title} уже существует. Попробуйте другое описание".format(
-                year=year, title=title
+            "Такой же сериал - {title} {title_season} уже существует. Попробуйте другое описание".format(
+                title=title, title_season=title_season
             ),
         )
     else:
@@ -153,166 +188,12 @@ def delete(content_id):
             "Нет сериала с таким Id: {content_id}".format(content_id=content_id),
         )
 
-def read_fx():
+def read_service(service_name):
     """
-    Запрос /api/fx - возвращает все сериалы fx
-    """
-    # Запрос по id
-    content = Content.query.filter(Content.selectservice == "FX").all()
-
-    content_schema = ContentSchema(many=True)
-    data = content_schema.dump(content).data
-    return data
-
-def read_netflix():
-    """
-    Запрос /api/netflix - возвращает все сериалы netflix
+    Запрос /api/services/{service_name} - возвращает все сериалы fx
     """
     # Запрос по id
-    content = Content.query.filter(Content.selectservice == "NETFLIX").all()
-
-    content_schema = ContentSchema(many=True)
-    data = content_schema.dump(content).data
-    return data
-
-def read_hbogo():
-    """
-    Запрос /api/hbogo - возвращает все сериалы HBO GO
-    """
-    # Запрос по id
-    content = Content.query.filter(Content.selectservice == "HBO-GO").all()
-
-    content_schema = ContentSchema(many=True)
-    data = content_schema.dump(content).data
-    return data
-
-def read_amazon():
-    """
-    Запрос /api/amazon - возвращает все сереалы amazon
-    """
-    # Запрос по id
-    content = Content.query.filter(Content.selectservice == "AMAZON").all()
-
-    content_schema = ContentSchema(many=True)
-    data = content_schema.dump(content).data
-    return data
-
-def read_amc():
-    """
-    Запрос /api/amc - возвращает все сереалы amc
-    """
-    # Запрос по id
-    content = Content.query.filter(Content.selectservice == "AMC").all()
-
-    content_schema = ContentSchema(many=True)
-    data = content_schema.dump(content).data
-    return data
-
-def read_hulu():
-    """
-    Запрос /api/hulu - возвращает все сереалы hulu
-    """
-    # Запрос по id
-    content = Content.query.filter(Content.selectservice == "HULU").all()
-
-    content_schema = ContentSchema(many=True)
-    data = content_schema.dump(content).data
-    return data
-
-def read_showtime():
-    """
-    Запрос /api/showtime - возвращает все сереалы showtime
-    """
-    # Запрос по id
-    content = Content.query.filter(Content.selectservice == "SHOWTIME").all()
-
-    content_schema = ContentSchema(many=True)
-    data = content_schema.dump(content).data
-    return data
-
-def read_disney():
-    """
-    Запрос /api/disney - возвращает все сереалы disney plus
-    """
-    # Запрос по id
-    content = Content.query.filter(Content.selectservice == "DISNEY").all()
-
-    content_schema = ContentSchema(many=True)
-    data = content_schema.dump(content).data
-    return data
-
-def read_apple():
-    """
-    Запрос /api/apple - возвращает все сереалы apple
-    """
-    # Запрос по id
-    content = Content.query.filter(Content.selectservice == "APPLE").all()
-
-    content_schema = ContentSchema(many=True)
-    data = content_schema.dump(content).data
-    return data
-
-def read_cw():
-    """
-    Запрос /api/cw - возвращает все сереалы CW
-    """
-    # Запрос по id
-    content = Content.query.filter(Content.selectservice == "CW").all()
-
-    content_schema = ContentSchema(many=True)
-    data = content_schema.dump(content).data
-    return data
-
-def read_others():
-    """
-    Запрос /api/others - возвращает все остальные сериалы
-    """
-    # Запрос по id
-    content = Content.query.filter(Content.selectservice == "OTHERS").all()
-
-    content_schema = ContentSchema(many=True)
-    data = content_schema.dump(content).data
-    return data
-
-def read_abc():
-    """
-    Запрос /api/abc - возвращает все сереалы abc
-    """
-    # Запрос по id
-    content = Content.query.filter(Content.selectservice == "ABC").all()
-
-    content_schema = ContentSchema(many=True)
-    data = content_schema.dump(content).data
-    return data
-
-def read_cbs():
-    """
-    Запрос /api/cbs - возвращает все сереалы cbs
-    """
-    # Запрос по id
-    content = Content.query.filter(Content.selectservice == "CBS").all()
-
-    content_schema = ContentSchema(many=True)
-    data = content_schema.dump(content).data
-    return data
-
-def read_bbc():
-    """
-    Запрос /api/bbc - возвращает все сереалы bbc
-    """
-    # Запрос по id
-    content = Content.query.filter(Content.selectservice == "BBC").all()
-
-    content_schema = ContentSchema(many=True)
-    data = content_schema.dump(content).data
-    return data
-
-def read_scyfi():
-    """
-    Запрос /api/scyfi - возвращает все сереалы sy-fy
-    """
-    # Запрос по id
-    content = Content.query.filter(Content.selectservice == "SCY-FI").all()
+    content = Content.query.filter(Content.selectservice == service_name.upper()).all()
 
     content_schema = ContentSchema(many=True)
     data = content_schema.dump(content).data
@@ -320,11 +201,157 @@ def read_scyfi():
 
 def read_now():
     """
-    Запрос /api/now - возвращает все сериалы которые сейчас есть и на Stingray TV
+    Запрос /api/now - возвращает все сериалы которые сейчас есть по тв на каналах Stingray TV
     """
     # Запрос по id
-    content = Content.query.filter(Content.selectservice == "СЕЙЧАС").all()
+    content = Content.query.filter(Content.flag_status == "NOW").all()
 
     content_schema = ContentSchema(many=True)
     data = content_schema.dump(content).data
     return data
+
+def get_appuser(usercode):
+    """
+     Информация о пользователе - api/appusers/{usercode}
+    """
+
+    existing_usercode = (
+        AppUsers.query.filter(AppUsers.usercode == usercode).one_or_none()
+    )
+
+    if existing_usercode is None:
+        abort(
+            409,
+            "Usercode {usercode} does not exists".format(
+                usercode=usercode
+            ),
+        )
+    else:
+        users_schema = AppUsersSchema()
+        data = users_schema.dump(existing_usercode).data
+
+        return data, 201
+
+
+def create_new_appuser(usercode):
+    """
+     Создает нового пользователя сгенерированного при первом запуске приложения (201 - ок, 409 - уже есть)
+    """
+
+    existing_usercode = (
+        AppUsers.query.filter(AppUsers.usercode == usercode).one_or_none()
+    )
+
+    # Проверка на существование
+    if existing_usercode is None:
+
+        # Добавляем
+        appusers = AppUsers(usercode=usercode, waitlist="empty")
+        db.session.add(appusers)
+        db.session.commit()
+
+        # Сериализация
+        new_user = (
+            AppUsers.query.filter(AppUsers.usercode == usercode).one_or_none()
+        )
+        users_schema = AppUsersSchema()
+        data = users_schema.dump(new_user).data
+
+        return data, 201
+
+    # Ошибка, если существует
+    else:
+        abort(
+            409,
+            "Usercode {usercode} already exists".format(
+                usercode=usercode
+            ),
+        )
+
+
+def create_new_waitlist(usercode, waitlist):
+    """
+     Обновляет лист ожиданий пользователя - api/waitlists/{usercode}/{waitlist}
+    """
+
+    user_by_usercode = (
+        AppUsers.query.filter(AppUsers.usercode == usercode).one_or_none()
+    )
+
+    if waitlist is None:
+        abort(
+            409,
+            "Waitlist of {usercode} is None - Post query failed".format(
+                usercode=usercode
+            ),
+        )
+
+    # Ошибка - если пользователя не существует
+    if user_by_usercode is None:
+        abort(
+            409,
+            "Usercode {usercode} does not exists".format(
+                usercode=usercode
+            ),
+        )
+
+    # Обновляем лист ожиданий
+    else:
+        user_by_usercode.waitlist = waitlist
+        db.session.commit()
+        # Сериализация
+        user_with_updated_waitlist = (
+            AppUsers.query.filter(AppUsers.usercode == usercode).one_or_none()
+        )
+        users_schema = AppUsersSchema()
+        data = users_schema.dump(user_with_updated_waitlist).data
+
+        return data, 201
+
+def get_waitlist(usercode):
+    """
+    Запрос /api/waitlists/{usercode} - возвращает waitlist контент по usercode
+    """
+    user_by_usercode = (
+        AppUsers.query.filter(AppUsers.usercode == usercode).one_or_none()
+    )
+
+    if user_by_usercode is None:
+        abort(
+            409,
+            "Usercode {usercode} does not exists".format(
+                usercode=usercode
+            ),
+        )
+
+    string_array_waitlist = user_by_usercode.waitlist
+    # Запрос по id
+    try:
+        array_waitlist = [int(s) for s in string_array_waitlist.split(',')]
+    except ValueError:
+        abort(
+            404,
+            "Waitlist empty or wrong format. Format of waitlist string should be - 1,2,3,4,5 etc",
+        )
+    except AttributeError:
+        abort(
+            404,
+            "Waitlist empty or wrong format. Format of waitlist string should be - 1,2,3,4,5 etc",
+        )
+
+    content = Content.query.filter(Content.content_id.in_(array_waitlist)).all()
+
+    # Проверка на наличие id
+    if content is not None:
+
+        # Сериализация
+        content_schema = ContentSchema(many=True)
+        data = content_schema.dump(content).data
+        return data
+
+    # Ошибка, если нет
+    else:
+        abort(
+            404,
+            "Empty show list with this IDs",
+        )

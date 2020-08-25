@@ -81,52 +81,76 @@ ns.view = (function() {
     'use strict';
 
     let $content_id = $('#content_id'),
-        $year = $('#year'),
         $title = $('#title'),
-        $restrict = $('#restrict'),
+        $title_season = $('#title_season'),
+        $restricty = $('#restricty'),
         $selectservice = $('#selectservice'),
-        $season = $('#season'),
-        $duration = $('#duration'),
-        $rating = $('#rating'),
+        $num_of_series = $('#num_of_series'),
+        $trailer = $('#trailer'),
         $kp_rating = $('#kp_rating'),
-        $imdb_rating = $('#imdb_rating'),
+        $flag_status = $('#flag_status'),
+        $actors = $('#actors'),
         $description = $('#description'),
-        $background = $('#background'),
+        $advertise = $('#advertise'),
         $poster = $('#poster'),
-        $whenontv = $('#whenontv');
+        $whenontv = $('#whenontv'),
+        $release_date = $('#release_date'),
+        $country = $('#country'),
+        $genre = $('#genre'),
+        $serial_duration = $('#serial_duration'),
+        $series_list = $('#series_list'),
+        $tv_channel = $('#tv_channel'),
+        $temp_col1 = $('#temp_col1'),
+        $temp_col2 = $('#temp_col2');
 
     return {
         reset: function() {
             $content_id.val('');
-            $title.val('');
-            $year.val('').focus();
+            $title_season.val('');
+            $title.val('').focus();
             $selectservice.val('FX');
-            $restrict.val('0');
-            $season.val('');
-            $duration.val('');
-            $rating.val('3');
-            $kp_rating.val('GO');
-            $imdb_rating.val('');
+            $restricty.val('18');
+            $num_of_series.val('');
+            $trailer.val('http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4');
+            $kp_rating.val('3');
+            $flag_status.val('GO');
+            $actors.val('');
             $description.val('');
-            $background.val('');
+            $advertise.val('advertise2');
             $poster.val('');
             $whenontv.val('');
+            $release_date.val('2020');
+            $country.val('USA');
+            $genre.val('');
+            $serial_duration.val('');
+            $series_list.val('');
+            $tv_channel.val('');
+            $temp_col1.val('');
+            $temp_col2.val('');
         },
         update_editor: function(content) {
             $content_id.val(content.content_id);
+            $title_season.val(content.title_season);
             $title.val(content.title);
-            $year.val(content.year);
             $selectservice.val(content.selectservice);
-            $restrict.val(content.restrict);
-            $season.val(content.season);
-            $duration.val(content.duration);
-            $rating.val(content.rating);
+            $restricty.val(content.restricty);
+            $num_of_series.val(content.num_of_series);
+            $trailer.val(content.trailer);
             $kp_rating.val(content.kp_rating);
-            $imdb_rating.val(content.imdb_rating);
+            $flag_status.val(content.flag_status);
+            $actors.val(content.actors);
             $description.val(content.description);
-            $background.val(content.background);
+            $advertise.val(content.advertise);
             $poster.val(content.poster);
             $whenontv.val(content.whenontv).focus();
+            $release_date.val(content.release_date);
+            $country.val(content.country);
+            $genre.val(content.genre);
+            $serial_duration.val(content.serial_duration);
+            $series_list.val(content.series_list);
+            $tv_channel.val(content.tv_channel);
+            $temp_col1.val(content.temp_col1);
+            $temp_col2.val(content.temp_col2).focus();
         },
         build_table: function(shows) {
             let rows = ''
@@ -139,18 +163,26 @@ ns.view = (function() {
                 for (let i=0, l=shows.length; i < l; i++) {
                     rows += `<tr data-content-id="${shows[i].content_id}">
                         <td class="poster"><img src="${shows[i].poster}" alt="${shows[i].poster}" style="width:90px;height:130px;"></td>
-                        <td class="year">${shows[i].year}</td>
                         <td class="title">${shows[i].title}</td>
-                        <td class="restrict">${shows[i].restrict}</td>
+                        <td class="title_season">${shows[i].title_season}</td>
+                        <td class="restricty">${shows[i].restricty}</td>
                         <td class="selectservice">${shows[i].selectservice}</td>
-                        <td class="season">${shows[i].season}</td>
-                        <td class="duration">${shows[i].duration}</td>
-                        <td class="rating">${shows[i].rating}</td>
+                        <td class="num_of_series">${shows[i].num_of_series}</td>
                         <td class="kp_rating">${shows[i].kp_rating}</td>
-                        <td class="imdb_rating" style="font-size: 0;">${shows[i].imdb_rating}</td>
+                        <td class="flag_status">${shows[i].flag_status}</td>
+                        <td class="actors">${shows[i].actors}</td>
                         <td class="description" style="font-size: 0;">${shows[i].description}</td>
-                        <td class="background"><img src="${shows[i].background}" alt="${shows[i].background}" style="width:85px;height:60px;"></td>
+                        <td class="advertise">${shows[i].advertise}</td>
                         <td class="whenontv" style="font-size: 0;">${shows[i].whenontv}</td>
+                        <td class="trailer" style="font-size: 0;">${shows[i].trailer}</td>
+                        <td class="release_date">${shows[i].release_date}</td>
+                        <td class="country">${shows[i].country}</td>
+                        <td class="genre">${shows[i].genre}</td>
+                        <td class="serial_duration">${shows[i].serial_duration}</td>
+                        <td class="series_list" style="font-size: 0;">${shows[i].series_list}</td>
+                        <td class="tv_channel">${shows[i].tv_channel}</td>
+                        <td class="temp_col1" style="font-size: 0;">${shows[i].temp_col1}</td>
+                        <td class="temp_col2" style="font-size: 0;">${shows[i].temp_col2}</td>
                     </tr>`;
                 }
                 $('table > tbody').append(rows);
@@ -175,63 +207,87 @@ ns.controller = (function(m, v) {
         view = v,
         $event_pump = $('body'),
         $content_id = $('#content_id'),
-        $year = $('#year'),
         $title = $('#title'),
+        $title_season = $('#title_season'),
         $selectservice = $('#selectservice'),
-        $season = $('#season'),
-        $restrict = $('#restrict'),
-        $duration = $('#duration'),
-        $rating = $('#rating'),
+        $num_of_series = $('#num_of_series'),
+        $restricty = $('#restricty'),
+        $trailer = $('#trailer'),
         $kp_rating = $('#kp_rating'),
-        $imdb_rating = $('#imdb_rating'),
+        $flag_status = $('#flag_status'),
+        $actors = $('#actors'),
         $description = $('#description'),
-        $background = $('#background'),
+        $advertise = $('#advertise'),
         $poster = $('#poster'),
-        $whenontv = $('#whenontv');
+        $whenontv = $('#whenontv'),
+        $release_date = $('#release_date'),
+        $country = $('#country'),
+        $genre = $('#genre'),
+        $serial_duration = $('#serial_duration'),
+        $series_list = $('#series_list'),
+        $tv_channel = $('#tv_channel'),
+        $temp_col1 = $('#temp_col1'),
+        $temp_col2 = $('#temp_col2');
 
     // Берем данные из model после того как controller инициалируется
     setTimeout(function() {
         model.read();
     }, 100)
 
-    // Валидация только по названиям: year - это рунэйм (накосячил - поправить потом)
-    function validate(year, title) {
-        return year !== "" && title !== "";
+    // Валидация только по названиям: title - это рунэйм (накосячил - поправить потом)
+    function validate(title, title_season) {
+        return title !== "" && title_season !== "";
     }
 
     // Обработчики кнопочек
     $('#create').click(function(e) {
-        let year = $year.val(),
-            title = $title.val(),
-            restrict = $restrict.val(),
+        let title = $title.val(),
+            title_season = $title_season.val(),
+            restricty = $restricty.val(),
             selectservice = $selectservice.val(),
-            season = $season.val(),
-            duration = $duration.val(),
-            rating = $rating.val(),
+            num_of_series = $num_of_series.val(),
+            trailer = $trailer.val(),
             kp_rating = $kp_rating.val(),
-            imdb_rating = $imdb_rating.val(),
+            flag_status = $flag_status.val(),
+            actors = $actors.val(),
             description = $description.val(),
-            background = $background.val(),
+            advertise = $advertise.val(),
             poster = $poster.val(),
-            whenontv = $whenontv.val();
+            whenontv = $whenontv.val(),
+            release_date = $release_date.val(),
+            country = $country.val(),
+            genre = $genre.val(),
+            serial_duration = $serial_duration.val(),
+            series_list = $series_list.val(),
+            tv_channel = $tv_channel.val(),
+            temp_col1 = $temp_col1.val(),
+            temp_col2 = $temp_col2.val();
 
         e.preventDefault();
 
-        if (validate(year, title)) {
+        if (validate(title, title_season)) {
             model.create({
-                'year': year,
                 'title': title,
-                'restrict': restrict,
+                'title_season': title_season,
+                'restricty': restricty,
                 'selectservice': selectservice,
-                'season': season,
-                'duration': duration,
-                'rating': rating,
+                'num_of_series': num_of_series,
+                'trailer': trailer,
                 'kp_rating': kp_rating,
-                'imdb_rating': imdb_rating,
+                'flag_status': flag_status,
+                'actors': actors,
                 'description': description,
-                'background': background,
+                'advertise': advertise,
                 'poster': poster,
                 'whenontv': whenontv,
+                'release_date': release_date,
+                'country': country,
+                'genre': genre,
+                'serial_duration': serial_duration,
+                'series_list': series_list,
+                'tv_channel': tv_channel,
+                'temp_col1': temp_col1,
+                'temp_col2': temp_col2,
             })
         } else {
             alert('Please fill all');
@@ -240,39 +296,55 @@ ns.controller = (function(m, v) {
 
     $('#update').click(function(e) {
         let content_id = $content_id.val(),
-            year = $year.val(),
             title = $title.val(),
+            title_season = $title_season.val(),
             selectservice = $selectservice.val(),
-            restrict = $restrict.val(),
-            season = $season.val(),
-            duration = $duration.val(),
-            rating = $rating.val(),
+            restricty = $restricty.val(),
+            num_of_series = $num_of_series.val(),
+            trailer = $trailer.val(),
             kp_rating = $kp_rating.val(),
-            imdb_rating = $imdb_rating.val(),
+            flag_status = $flag_status.val(),
+            actors = $actors.val(),
             description = $description.val(),
-            background = $background.val(),
+            advertise = $advertise.val(),
             poster = $poster.val(),
-            whenontv = $whenontv.val();
+            whenontv = $whenontv.val(),
+            release_date = $release_date.val(),
+            country = $country.val(),
+            genre = $genre.val(),
+            serial_duration = $serial_duration.val(),
+            series_list = $series_list.val(),
+            tv_channel = $tv_channel.val(),
+            temp_col1 = $temp_col1.val(),
+            temp_col2 = $temp_col2.val();
             
 
         e.preventDefault();
 
-        if (validate(year, title, restrict, selectservice, season)) {
+        if (validate(title, title_season)) {
             model.update({
                 content_id: content_id,
-                year: year,
                 title: title,
-                restrict: restrict,
+                title_season: title_season,
+                restricty: restricty,
                 selectservice: selectservice,
-                season: season,
-                duration: duration,
-                rating: rating,
+                num_of_series: num_of_series,
+                trailer: trailer,
                 kp_rating: kp_rating,
-                imdb_rating: imdb_rating,
+                flag_status: flag_status,
+                actors: actors,
                 description: description,
-                background: background,
+                advertise: advertise,
                 poster: poster,
                 whenontv: whenontv,
+                release_date: release_date,
+                country: country,
+                genre: genre,
+                serial_duration: serial_duration,
+                series_list: series_list,
+                tv_channel: tv_channel,
+                temp_col1: temp_col1,
+                temp_col2: temp_col2,
             })
         } else {
             alert('Problem with first or last name input');
@@ -285,7 +357,7 @@ ns.controller = (function(m, v) {
 
         e.preventDefault();
 
-        if (validate('placeholder', title)) {
+        if (validate('placeholder', title_season)) {
             model.delete(content_id)
         } else {
             alert('Problem with first or last name input');
@@ -300,37 +372,45 @@ ns.controller = (function(m, v) {
     $('table > tbody').on('click', 'tr', function(e) {
         let $target = $(e.target),
             content_id,
-            year,
             title,
+            title_season,
             selectservice,
-            restrict,
-            season,
-            duration,
-            rating,
+            restricty,
+            num_of_series,
+            trailer,
             kp_rating,
-            imdb_rating, 
+            flag_status,
+            actors, 
             description, 
-            background,
+            advertise,
             poster,
-            whenontv;
+            whenontv,
+            release_date,
+            country,
+            genre,
+            serial_duration,
+            series_list,
+            tv_channel,
+            temp_col1,
+            temp_col2;
 
         content_id = $target
             .parent()
             .attr('data-content-id');
-
-        year = $target
-            .parent()
-            .find('td.year')
-            .text();
 
         title = $target
             .parent()
             .find('td.title')
             .text();
 
-        restrict = $target
+        title_season = $target
             .parent()
-            .find('td.restrict')
+            .find('td.title_season')
+            .text();
+
+        restricty = $target
+            .parent()
+            .find('td.restricty')
             .text();
 
         selectservice = $target
@@ -338,19 +418,14 @@ ns.controller = (function(m, v) {
             .find('td.selectservice')
             .text();
 
-        season = $target
+        num_of_series = $target
             .parent()
-            .find('td.season')
+            .find('td.num_of_series')
             .text();
 
-        duration = $target
+        trailer = $target
             .parent()
-            .find('td.duration')
-            .text();
-
-        rating = $target
-            .parent()
-            .find('td.rating')
+            .find('td.trailer')
             .text();
 
         kp_rating = $target
@@ -358,9 +433,14 @@ ns.controller = (function(m, v) {
             .find('td.kp_rating')
             .text();
 
-        imdb_rating = $target
+        flag_status = $target
             .parent()
-            .find('td.imdb_rating')
+            .find('td.flag_status')
+            .text();
+
+        actors = $target
+            .parent()
+            .find('td.actors')
             .text();
 
         description = $target
@@ -368,11 +448,10 @@ ns.controller = (function(m, v) {
             .find('td.description')
             .text();
 
-        background = $target
+        advertise = $target
             .parent()
-            .find('td.background')
-            .find('img')
-            .attr('src');
+            .find('td.advertise')
+            .text();
 
         poster = $target
             .parent()
@@ -384,22 +463,70 @@ ns.controller = (function(m, v) {
             .parent()
             .find('td.whenontv')
             .text();
+        
+        release_date = $target
+            .parent()
+            .find('td.release_date')
+            .text();
+
+        country = $target
+            .parent()
+            .find('td.country')
+            .text();
+
+        genre = $target
+            .parent()
+            .find('td.genre')
+            .text();
+
+        serial_duration = $target
+            .parent()
+            .find('td.serial_duration')
+            .text();
+
+        series_list = $target
+            .parent()
+            .find('td.series_list')
+            .text();
+
+        tv_channel = $target
+            .parent()
+            .find('td.tv_channel')
+            .text();
+
+        temp_col1 = $target
+            .parent()
+            .find('td.temp_col1')
+            .text();
+
+        temp_col2 = $target
+            .parent()
+            .find('td.temp_col2')
+            .text();
 
         view.update_editor({
             content_id: content_id,
-            year: year,
             title: title,
-            restrict: restrict,
+            title_season: title_season,
+            restricty: restricty,
             selectservice: selectservice,
-            season: season,
-            duration: duration,
-            rating: rating,
+            num_of_series: num_of_series,
+            trailer: trailer,
             kp_rating: kp_rating,
-            imdb_rating: imdb_rating,
+            flag_status: flag_status,
+            actors: actors,
             description: description,
-            background: background,
+            advertise: advertise,
             poster: poster,
             whenontv: whenontv,
+            release_date: release_date,
+            country: country,
+            genre: genre,
+            serial_duration: serial_duration,
+            series_list: series_list,
+            tv_channel: tv_channel,
+            temp_col1: temp_col1,
+            temp_col2: temp_col2,
         });
     });
 

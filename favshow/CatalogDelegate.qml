@@ -47,5 +47,23 @@ Rectangle {
         Behavior on width  { animation: Animation { duration: constants.animationDuration; } }
         Behavior on height { animation: Animation { duration: constants.animationDuration; } }
     }
+
+    Image {
+        id: chanImage;
+
+		width: constants.tvChannel["width"];
+		height: constants.tvChannel["height"];
+
+        anchors.centerIn: parent;
+
+        registerInCacheSystem: false;
+
+        source: "apps/favshow/resources/" + model.tvChannel + ".png";
+
+        fillMode: PreserveAspectFit;
+
+        Behavior on width  { animation: Animation { duration: constants.animationDuration; } }
+        Behavior on height { animation: Animation { duration: constants.animationDuration; } }
+    }
 }
 

@@ -1,9 +1,0 @@
-runtime: python
-env: flex
-entrypoint: gunicorn -b :8080 server:connex_app
-manual_scaling:
-  instances: 1
-runtime_config:
-  python_version: 3
-env_variables:
-  CLOUD_STORAGE_BUCKET: clever-passage-244005

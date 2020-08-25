@@ -35,16 +35,23 @@ GridView {
                     catalogModel.append( {  id: catalogItem["content_id"],
                                             title: catalogItem["title"],
                                             background: catalogView.extractBackgroundImage(catalogItem),
-                                            year: catalogItem["year"] ? catalogItem["year"] : "-",
-                                            restrict: catalogItem["restrict"] ? catalogItem["restrict"] : "12",
-                                            duration: catalogItem["duration"] ? catalogItem["duration"] : "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
-                                            favshowRating: catalogItem["rating"] ? catalogItem["rating"] : "3",
-                                            kpRating: catalogItem["kp_rating"] ? catalogItem["kp_rating"] : "FREEZE",
-                                            imdbRating: catalogItem["imdb_rating"] ? catalogItem["imdb_rating"] : "-",
+                                            titleSeason: catalogItem["title_season"] ? catalogItem["title_season"] : "-",
+                                            restrict: catalogItem["restricty"] ? catalogItem["restricty"] : "12",
+                                            trailer: catalogItem["trailer"] ? catalogItem["trailer"] : "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+                                            favshowRating: catalogItem["kp_rating"] ? catalogItem["kp_rating"] : "3",
+                                            flagStatus: catalogItem["flag_status"] ? catalogItem["flag_status"] : "FREEZE",
+                                            actors: catalogItem["actors"] ? catalogItem["actors"] : "-",
                                             description: catalogItem["description"] ? catalogItem["description"] : "",
                                             whenontv: catalogItem["whenontv"] ? catalogItem["whenontv"] : "",
-                                            season: catalogItem["season"] ? catalogItem["season"] : "S1E1",
-                                            poster: catalogItem["poster"] ? catalogItem["poster"] : constants.defaultPoster } );
+                                            numSeries: catalogItem["num_of_series"] ? catalogItem["num_of_series"] : "-",
+                                            poster: catalogItem["poster"] ? catalogItem["poster"] : constants.defaultPoster,
+                                            releaseDate: catalogItem["release_date"] ? catalogItem["release_date"] : "2020",
+                                            genre: catalogItem["genre"] ? catalogItem["genre"] : "-",
+                                            country: catalogItem["country"] ? catalogItem["country"] : "США",
+                                            advertise: catalogItem["advertise"] ? catalogItem["advertise"] : "advertise2",
+                                            serDur: catalogItem["serial_duration"] ? catalogItem["serial_duration"] : "-",
+                                            serList: catalogItem["series_list"] ? catalogItem["series_list"] : "",
+                                            tvChannel: catalogItem["tv_channel"] ? catalogItem["tv_channel"] : "empty"} );
                 });
                 catalogView.loading = false;
                 catalogView.setFocus();
@@ -67,7 +74,7 @@ GridView {
             else if (catalogItem["selectservice"] == "NETFLIX"){
                 result = constants.netflixBackground;
             }
-            else if (catalogItem["selectservice"] == "HBO-GO"){
+            else if (catalogItem["selectservice"] == "HBO"){
                 result = constants.hbogoBackground;
             }
             else if (catalogItem["selectservice"] == "AMAZON"){
@@ -76,7 +83,7 @@ GridView {
             else if (catalogItem["selectservice"] == "DISNEY"){
                 result = constants.disneyBackground;
             }
-            else if (catalogItem["selectservice"] == "APPLE"){
+            else if (catalogItem["selectservice"] == "APPLE-TV"){
                 result = constants.appleBackground;
             }
             else if (catalogItem["selectservice"] == "FX"){
@@ -85,10 +92,10 @@ GridView {
             else if (catalogItem["selectservice"] == "SHOWTIME"){
                 result = constants.showtimeBackground;
             }
-            else if (catalogItem["selectservice"] == "CW"){
+            else if (catalogItem["selectservice"] == "THE-CW"){
                 result = constants.cwBackground;
             }
-            else if (catalogItem["selectservice"] == "OTHERS"){
+            else if (catalogItem["selectservice"] == "FOX"){
                 result = constants.othersBackground;
             }
             else if (catalogItem["selectservice"] == "ABC"){
@@ -97,7 +104,7 @@ GridView {
             else if (catalogItem["selectservice"] == "CBS"){
                 result = constants.cbsBackground;
             }
-            else if (catalogItem["selectservice"] == "SCY-FI"){
+            else if (catalogItem["selectservice"] == "SYFY"){
                 result = constants.syfyBackground;
             }
             else if (catalogItem["selectservice"] == "СЕЙЧАС"){

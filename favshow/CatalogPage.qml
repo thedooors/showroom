@@ -10,15 +10,22 @@ Item {
 
     property alias title: titleText.text;
     property alias poster: posterImage.source;
-    property alias year: yearText.text;
+    property alias titleSeason: titleSeasonText.text;
     property alias description: descriptionText.text;
-    property string duration;
+    property string id;
+    property string trailer;
     property string restrict;
     property string favshowRating;
-    property string kpRating;
-    property string imdbRating;
+    property string flagStatus;
+    property string actors;
     property string whenontv;
-    property string season;
+    property string numSeries;
+    property string genre;
+    property string serDur;
+    property string tvChannel;
+    property string advertise;
+    property string releaseDate;
+    property string country;
 
     Image {
         id: posterDefaultImage;
@@ -50,6 +57,47 @@ Item {
         fillMode: Stretch;
     }
 
+    Image {
+        id: advertiseImage;
+
+        anchors.top: posterImage.bottom;
+        anchors.left: catalogPage.left;
+        anchors.topMargin: 8;
+        
+        width: 172;
+        height: 83;
+        source: "apps/favshow/resources/" + catalogPage.advertise + ".png";
+        fillMode: Stretch;
+    }
+
+    SecondaryText {
+            id: releaseDateText;
+
+            anchors.top: advertiseImage.bottom;
+            anchors.left: catalogPage.left;
+            anchors.topMargin: 4;
+
+            width: 172;
+
+            text: "Релиз: " + catalogPage.releaseDate;
+
+            color: "#858585";
+        }
+    
+    SecondaryText {
+            id: countryText;
+
+            anchors.top: releaseDateText.bottom;
+            anchors.left: catalogPage.left;
+            anchors.topMargin: 4;
+
+            width: 172;
+
+            text: "Страна: " + catalogPage.country;
+
+            color: "#858585";
+        }
+
     SubheadText {
         id: titleText;
 
@@ -63,8 +111,19 @@ Item {
         wrapMode: ui.Text.Wrap;
     }
 
+    Image {
+        id: tvchannelImage;
+
+        anchors.top: catalogPage.top;
+        anchors.left: restrictText.left;
+
+        width: 32;
+        height: 32;
+        source: "apps/favshow/resources/" + catalogPage.tvChannel + ".png";
+    }
+
     BodyText {
-        id: yearText;
+        id: titleSeasonText;
 
         anchors.top: titleText.bottom;
         anchors.left: posterDefaultImage.visible ? posterDefaultImage.right : posterImage.right;
@@ -77,7 +136,7 @@ Item {
         id: restrictText;
 
         anchors.top: titleText.bottom;
-        anchors.left: yearText.right;
+        anchors.left: titleSeasonText.right;
         anchors.leftMargin: constants.margin / 4;
 
         width: 32;
@@ -86,7 +145,7 @@ Item {
     }
 
     Image {
-        id: durationText;
+        id: trailerText;
 
         anchors.top: titleText.bottom;
         anchors.left: restrictText.right;
@@ -100,7 +159,7 @@ Item {
     Item {
         id: ratingItem;
 
-        anchors.top: yearText.bottom;
+        anchors.top: titleSeasonText.bottom;
         anchors.topMargin: constants.margin / 4;
         anchors.left: posterDefaultImage.visible ? posterDefaultImage.right : posterImage.right;
         anchors.leftMargin: constants.margin / 2;
@@ -115,16 +174,27 @@ Item {
 
             width: 160;
             height: 32;
-            source: "apps/favshow/resources/" + catalogPage.kpRating + ".png";
+            source: "apps/favshow/resources/" + catalogPage.flagStatus + ".png";
         }
 
         SecondaryText {
-            id: kpRatingText;
+            id: flagStatusText;
 
             anchors.left: favshowRatingText.right;
             anchors.leftMargin: constants.margin / 2;
 
-            text: "Ep: " + catalogPage.season;
+            text: catalogPage.numSeries + " серий по " + catalogPage.serDur;
+
+            color: "#000000";
+        }
+
+        SecondaryText {
+            id: genreText;
+
+            anchors.left: flagStatusText.right;
+            anchors.leftMargin: constants.margin / 2;
+
+            text: "Жанр: " + catalogPage.genre;
 
             color: "#000000";
         }
@@ -160,7 +230,17 @@ Item {
 
     NotificatorManager {
         id: notifyWaiting;
-        text: "'" + yearText.text + "' в ожидании";
+        text: "'" + titleText.text + "' в ожидании";
+    }
+
+    NotificatorManager {
+        id: notifyAlreadyExist;
+        text: "'" + titleText.text + "' уже в списке ожидания";
+    }
+
+    NotificatorManager {
+        id: notifyAlreadyOnTV;
+        text: "Отмена.'" + titleText.text + "' уже на ТВ";
     }
 
     Button {
@@ -187,7 +267,41 @@ Item {
 
         onSelectPressed: {
             log("wait button pressed");
-            notifyWaiting.addNotify();
+            var waitlist = load("waitlist");
+            var waitlistArray;
+            if (waitlist === "") {
+                waitlistArray = new Array();
+            }
+            else{
+                waitlistArray = waitlist.split(",");
+            }
+            if (waitlistArray.indexOf(catalogPage.id) != -1){
+                notifyAlreadyExist.addNotify();
+            }
+            else if (catalogPage.flagStatus == "NOW"){
+                notifyAlreadyOnTV.addNotify();
+            }
+            else {
+                waitlistArray.push(catalogPage.id);
+                var waitlistString = waitlistArray.join(",");
+                save("waitlist", waitlistString);
+                log(load("waitlist"));
+                var request = new XMLHttpRequest();
+                request.onreadystatechange = function() {
+                        if (request.readyState !== XMLHttpRequest.DONE)
+                            return;
+                        if (request.status && request.status === 201) {
+                            log("Waitlist updated on server");
+                        } else
+                            log("ResponseError ", request.status);
+                    }
+                
+                var url = "http://35.228.3.191:9090/api/waitlists/" + constants.usercode + "/" + waitlistString;
+                log(url);
+                request.open("POST", url, true);
+                request.send();
+                notifyWaiting.addNotify();
+            }
         }
     }
 
@@ -195,7 +309,7 @@ Item {
         id: actorsText;
 
         anchors.top: watchButton.bottom;
-        anchors.topMargin: constants.margin / 2;
+        anchors.topMargin: 15;
         anchors.left: posterDefaultImage.visible ? posterDefaultImage.right : posterImage.right;
         anchors.leftMargin: constants.margin / 2;
         anchors.right: catalogPage.right;
@@ -208,7 +322,7 @@ Item {
 
         height: 35;
 
-        text: catalogPage.whenontv;
+        text: "Расписание: " + catalogPage.whenontv;
 
         onUpPressed: {
             watchButton.setFocus();
@@ -223,7 +337,7 @@ Item {
         id: whenText;
 
         anchors.top: actorsText.bottom;
-        anchors.topMargin: constants.margin / 2;
+        anchors.topMargin: 15;
         anchors.left: posterDefaultImage.visible ? posterDefaultImage.right : posterImage.right;
         anchors.leftMargin: constants.margin / 2;
         anchors.right: catalogPage.right;
@@ -236,7 +350,7 @@ Item {
 
         height: 35;
 
-        text: catalogPage.imdbRating;
+        text: "В ролях: " + catalogPage.actors;
 
         onUpPressed: {
             actorsText.setFocus();
@@ -251,7 +365,7 @@ Item {
         id: descriptionText;
 
         anchors.top: whenText.bottom;
-        anchors.topMargin: constants.margin / 2;
+        anchors.topMargin: 15;
         anchors.left: posterDefaultImage.visible ? posterDefaultImage.right : posterImage.right;
         anchors.leftMargin: constants.margin / 2;
         anchors.right: catalogPage.right;

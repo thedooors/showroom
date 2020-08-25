@@ -1,12 +1,16 @@
 import "CategoryDelegate.qml";
+import controls.HighlightListView;
 
 import "js/constants.js" as constants;
 
-ListView {
+HighlightListView {
     id: categoryList;
 
     focus: true;
     clip: true;
+    hlWidth: 4;
+    hlHeight: 4;
+    highlightColor: "#0f66e9";
 
     model: ListModel {}
 

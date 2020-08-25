@@ -12,61 +12,63 @@
 {% block content %}
 
     <div class="container">
+    <div class="row">
+
+    <div class="col-xl-8 col-lg-7">
     <div class="card shadow mb-4">
         <div class="card-header py-3">
           <h6 class="m-0 font-weight-bold text-primary">Добавить контент</h6>
         </div>
         <div class="card-body">
-        <div class="section editor">
             <input id="content_id" type="hidden" value="" />
-            <label for="year">Название (Ru)
-                <input id="year" type="text" />
-            </label>
-            <br />
-            <label for="title">Название (Eng)
+            <label for="title">Название&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <input id="title" type="text" />
             </label>
             <br />
-            <label for="selectservice">Сервис
+            <label for="title_season">Сезон&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input id="title_season" type="text" />
+            </label>
+            <br />
+            <label for="selectservice">Сервис&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <select id="selectservice">
                     <option value="FX">FX</option>
-                    <option value="NETFLIX">Netflix</option>
+                    <option value="NETFLIX">NETFLIX</option>
                     <option value="AMC">AMC</option>
-                    <option value="HBO-GO">HBO Go</option>
-                    <option value="AMAZON">Amazon Prime</option>
-                    <option value="SHOWTIME">ShowTime</option>
-                    <option value="DISNEY">Disney +</option>
-                    <option value="APPLE">Apple TV</option>
-                    <option value="CW">CW</option>
+                    <option value="HBO">HBO</option>
+                    <option value="AMAZON">AMAZON</option>
+                    <option value="SHOWTIME">SHOWTIME</option>
+                    <option value="DISNEY">DISNEY</option>
+                    <option value="APPLE-TV">APPLE-TV</option>
+                    <option value="THE-CW">THE-CW</option>
                     <option value="ABC">ABC</option>
-                    <option value="SCY-FI">ScyFi</option>
-                    <option value="BBC">BBC One</option>
+                    <option value="SYFY">SYFY</option>
+                    <option value="BBC">BBC</option>
                     <option value="CBS">CBS</option>
-                    <option value="OTHERS">OTHERS</option>
-                    <option value="СЕЙЧАС">СЕЙЧАС</option>
+                    <option value="FOX">FOX</option>
+                    <option value="HULU">HULU</option>
                 </select>
             </label>
             <br />
-            <label for="restrict">RARS
-                <select id="restrict">
-                    <option value="0">0+</option>
-                    <option value="6">6+</option>
-                    <option value="12">12+</option>
-                    <option value="16">16+</option>
-                    <option value="18">18+</option>
+            <label for="restricty">RARS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select id="restricty">
+                    <option value="0">0</option>
+                    <option value="6">6</option>
+                    <option value="12">12</option>
+                    <option value="16">16</option>
+                    <option value="18">18</option>
                 </select>
             </label>
             <br />
-            <label for="season">Сезон
-                <input id="season" type="text" maxlength="56"/>
+            <label for="num_of_series">Кол-во серий&nbsp;&nbsp;
+                <input id="num_of_series" type="text"/>
             </label>
             <br />
-            <label for="duration">Трейлер
-                <input id="duration" type="url" maxlength="500"/>
+            <label for="trailer">Трейлер&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input id="trailer" type="url"/>
             </label>
             <br />
-            <label for="rating">Rating
-                <select id="rating">
+            <label for="kp_rating">Rating&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select id="kp_rating">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -75,8 +77,8 @@
                 </select>
             </label>
             <br />
-            <label for="kp_rating">Состояние
-                <select id="kp_rating">
+            <label for="flag_status">Состояние&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select id="flag_status">
                     <option value="PREMIERE">Премьера</option>
                     <option value="GO">Идет</option>
                     <option value="FREEZE">Заморожен</option>
@@ -85,26 +87,88 @@
                 </select>
             </label>
             <br />
-            <label for="imdb_rating">В ролях
-                <textarea id="imdb_rating" rows="4" cols="50" maxlength="500"></textarea>
+            <label for="actors">В ролях&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <textarea id="actors" rows="4" cols="50"></textarea>
             </label>
             <br />
-            <label for="description">Описание
-                    <textarea id="description" rows="4" cols="50" maxlength="1000"></textarea>
+            <label for="release_date">Дата выхода&nbsp;&nbsp;&nbsp;
+                <input id="release_date" type="text"/>
             </label>
             <br />
-            <label for="background">Реклама
-                <input id="background" type="url" maxlength="500"/>
+            <label for="country">Страна&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input id="country" type="text"/>
             </label>
             <br />
-            <label for="poster">Постер
-                <input id="poster" type="url" maxlength="500"/>
+            <label for="genre">Жанр&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input id="genre" type="text"/>
             </label>
             <br />
-            <label for="whenontv">Когда по ТВ? (График выхода)
-                    <textarea id="whenontv" rows="4" cols="50" maxlength="500"></textarea>
+            <label for="serial_duration">Продолжит.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input id="serial_duration" type="text"/>
             </label>
             <br />
+            <label for="series_list">Список серий&nbsp;
+                <textarea id="series_list" rows="4" cols="50"></textarea>
+            </label>
+            <br />
+            <label for="description">Описание&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <textarea id="description" rows="4" cols="50"></textarea>
+            </label>
+            <br />
+            <label for="poster">Постер&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input id="poster" type="url"/>
+            </label>
+            <br />
+            <label for="advertise">Реклама&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select id="advertise">
+                    <option value="advertise">Баннер1</option>
+                    <option value="advertise2">Баннер2</option>
+                    <option value="advertise3">Баннер3</option>
+                </select>
+            </label>
+            <br />
+            <label for="whenontv">Когда по ТВ?</br> (График)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <textarea id="whenontv" rows="4" cols="50"></textarea>
+            </label>
+            <br />
+            <label for="tv_channel">Телеканал&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <select id="tv_channel">
+                    <option value="chan_1">Первый</option>
+                    <option value="chan_22">2x2</option>
+                    <option value="chan_a1">A1</option>
+                    <option value="chan_a2">A2</option>
+                    <option value="chan_amediahit">AmediaHit</option>
+                    <option value="chan_amediapremium">AmediaPremium</option>
+                    <option value="chan_che">Че</option>
+                    <option value="chan_disney">Disney</option>
+                    <option value="chan_foxlive">FOXLive</option>
+                    <option value="fox_chan">FOX</option>
+                    <option value="chan_param">Paramount</option>
+                    <option value="chan_paramount">ParamountComedy</option>
+                    <option value="chan_pyat">Пятница</option>
+                    <option value="chan_ren">Рен</option>
+                    <option value="chan_shok">Шокирующее</option>
+                    <option value="chan_sonysyfy">SonySyFy</option>
+                    <option value="chan_sonyturbo">SonyTurbo</option>
+                    <option value="chan_sonytv">SonyTV</option>
+                    <option value="chan_spike">Spike</option>
+                    <option value="chan_tv3">TV3</option>
+                    <option value="chan_ultrahd">UltraHD</option>
+                    <option value="chan_you">ЮТВ</option>
+                    <option value="chan_other">Другой</option>
+                    <option value="">NoTV</option>
+                </select>
+            </label>
+            <br />
+            <label for="temp_col1">Доп. инфо. 1&nbsp;&nbsp;&nbsp;
+                <textarea id="temp_col1" rows="4" cols="50"></textarea>
+            </label>
+            <br />
+            <label for="temp_col2">Доп. инфо. 2&nbsp;&nbsp;&nbsp;
+                <textarea id="temp_col2" rows="4" cols="50"></textarea>
+            </label>
+            <br />
+            
             <button id="create" class="btn btn-success btn-icon-split">
                     <span class="icon text-white-50">
                       <i class="fas fa-check"></i>
@@ -129,9 +193,40 @@
                     </span>
                     <span class="text">Очистить</span>
                 </button>
-        </div>
     </div>
     </div>
+    </div>
+    <div class="col-xl-4 col-lg-5">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Администрируйте контент Showroom</h6>
+            </div>
+            <div class="card-body">
+              <div class="text-center">
+                <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="static/img/undraw_netflix_q00o.svg" alt="">
+              </div>
+              <p>Чтобы изменить информацию и статус просто кликните по нужному сериалу в таблице внизу, дополните информацию и нажмите "Изменить"</p>
+              <p>Добавить новый - внесите информацию в форму и нажмите "Создать"</p>
+              <p>Удалить сериал - кликните по нужной строке в таблице и нажмите "Удалить"</p>
+              <p>Больше функций доступно в автодокументированном <a href="{{ url_for('/api./api_swagger_ui_index') }}">REST UI</a></p>
+            </div>
+          </div>
+
+          <!-- Approach -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">Анализируйте информацию о пользователях</h6>
+            </div>
+            <div class="card-body">
+                <div class="text-center">
+                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="static/img/undraw_analytics_5pgy.svg" alt="">
+                  </div>
+              <p>Выявляйте самый популярный контент и исследуйте пользовательские действия (Вкладки - "Аналитика" и "Пользователи")</p>
+            </div>
+          </div>
+    </div>
+    </div>
+</div>
 
     <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -144,18 +239,26 @@
                 <thead>
                     <tr>
                         <th>Постер</th>
-                        <th>RuName</th>
-                        <th>EngName</th>
+                        <th>Название</th>
+                        <th>Сезон</th>
                         <th>RARS</th>
                         <th>Сервис</th>
-                        <th>Сез/Сер</th>
-                        <th>Трейлер</th>
+                        <th>Серии</th>
                         <th>Рейтинг</th>
                         <th>Состояние</th>
                         <th>В ролях</th>
                         <th>Описание</th>
-                        <th>Фон</th>
+                        <th>Реклама</th>
                         <th>Когда</th>
+                        <th>Трейлер</th>
+                        <th>Дата выхода</th>
+                        <th>Страна</th>
+                        <th>Жанр</th>
+                        <th>Продолжит</th>
+                        <th>Серии</th>
+                        <th>Канал</th>
+                        <th>Доп1</th>
+                        <th>Доп2</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -165,9 +268,9 @@
         </div>
         </div>
     </div>
-        <div class="error">
-        </div>
+    <div class="error">
     </div>
+    
     {% endblock %}
     {% block scripts %}
     <script src="static/js/home.js"></script>

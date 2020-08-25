@@ -1,0 +1,128 @@
+{% extends 'template.html' %}
+{% block styles %}
+  <!-- Custom fonts for this template-->
+  <link href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}" rel="stylesheet">
+  <script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+{% endblock %}
+{% block content %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+  <h1 class="h3 mb-0 text-gray-800">Аналитика</h1>
+</div>
+
+<div class="row">
+
+  <!-- Earnings (Monthly) Card Example -->
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-primary shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Самый подписываемый сервис</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ most_anticipated_content.selectservice }}</div>
+          </div>
+          <div class="col-auto">
+            <i class="fas fa-tv fa-2x text-gray-300"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Earnings (Annual) Card Example -->
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-success shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Число пользователей</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ number_of_users }}</div>
+          </div>
+          <div class="col-auto">
+            <i class="fas fa-eye fa-2x text-gray-300"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-info shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Подписались на бот</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ subscribed_on_bot }}</div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-paper-plane fa-2x text-gray-300"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-warning shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Самый популярный жанр</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ most_anticipated_content.genre }}</div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-flag fa-2x text-gray-300"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-4 col-lg-5">
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Самый частый в списках ожидания</h6>
+      </div>
+      <div class="card-body">
+        <div class="text-center">
+          <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="{{ most_anticipated_content.poster }}" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-8 col-lg-7">
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">{{ most_anticipated_content.title }}</h6>
+      </div>
+            <div class="card-body">
+              <h3>{{ most_anticipated_content.title_season }}</h3>
+              <p>Жанр - {{ most_anticipated_content.genre }}</p>
+              <p>Возрастное ограничение - {{ most_anticipated_content.restricty }}</p>
+              <p>Сервис - {{ most_anticipated_content.selectservice }}</p>
+              <p>Число серий - {{ most_anticipated_content.num_of_series }}</p>
+              <p>Дата выхода - {{ most_anticipated_content.release_date }}</p>
+              <p>Актеры - {{ most_anticipated_content.actors }}</p>
+              <p>Страна производства - {{ most_anticipated_content.country }}</p>
+              <h4>Описание</h4>
+              <p>{{ most_anticipated_content.description }}</p>
+            </div>
+</div>
+  </div>
+  </div>
+    {% endblock %}
+    {% block scripts %}
+  <script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="{{ url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="{{ url_for('static', filename='js/sb-admin-2.min.js') }}"></script>
+    {% endblock %}

@@ -2,6 +2,8 @@ import "CatalogPage.qml";
 import "CatalogView.qml";
 import "CategoryMenu.qml";
 import "FavshowPlayer.qml";
+import "GooglePlayView.qml";
+import "TelegramView.qml";
 
 import controls.Spinner;
 
@@ -35,12 +37,102 @@ Application {
 
             anchors.top: parent.top;
             anchors.left: parent.left;
-            anchors.margins: constants.margin;
+            anchors.leftMargin: 60;
+            anchors.topMargin: 12;
 
             source: "apps/favshow/resources/menu.png";
 
             fillMode: PreserveAspectFit;
         }
+        
+        Image {
+            id: googleplayButton;
+            focus: true;
+            anchors.top: favshowImage.bottom;
+            anchors.left: parent.left;
+            anchors.topMargin: 4;
+            anchors.bottomMargin: 36;
+            anchors.leftMargin: 64;
+
+            width:  googleplayButton.activeFocus ? 48 : 36;
+            height: googleplayButton.activeFocus ? 48 : 36;
+
+            source: constants.googleplayButton;
+
+            fillMode: PreserveAspectFit;
+
+            onDownPressed: {
+                googlePlayView.visible = false;
+                categoryMenu.setFocus();
+            }
+
+            onRightPressed: {
+                googlePlayView.visible = false;
+                telegramButton.setFocus();
+            }
+
+            onKeyPressed: {
+                if (key === "Select") {
+                    if (googlePlayView.visible != true) {
+                        googlePlayView.visible = true;
+                    }
+                    else {
+                        googlePlayView.visible = false;
+                    }
+                }
+            }
+
+            Behavior on width  { animation: Animation { duration: constants.animationDuration; } }
+            Behavior on height { animation: Animation { duration: constants.animationDuration; } }
+        }
+
+        Image {
+            id: telegramButton;
+            focus: true;
+            anchors.top: favshowImage.bottom;
+            anchors.left: googleplayButton.right;
+            anchors.topMargin: 4;
+            anchors.leftMargin: 12;
+            anchors.bottomMargin: 36;
+
+            width:  telegramButton.activeFocus ? 48 : 36;
+            height: telegramButton.activeFocus ? 48 : 36;
+
+            source: constants.telegramButton;
+
+            fillMode: PreserveAspectFit;
+
+            onKeyPressed: {
+                if (key === "Select") {
+                    if (telegramView.visible != true) {
+                        telegramView.visible = true;
+                    }
+                    else {
+                        telegramView.visible = false;
+                    }
+                }
+            }
+
+            onLeftPressed: {
+                telegramView.visible = false;
+                googleplayButton.setFocus();
+            }
+
+            onRightPressed: {
+                telegramView.visible = false;
+                catalogView.setFocus();
+            }
+
+            onDownPressed: {
+                telegramView.visible = false;
+                categoryMenu.setFocus();
+            }
+
+            Behavior on width  { animation: Animation { duration: constants.animationDuration; } }
+            Behavior on height { animation: Animation { duration: constants.animationDuration; } }
+        }
+
+        
 
         CategoryMenu {
             id: categoryMenu;
@@ -53,9 +145,13 @@ Application {
 
             spacing: constants.margin / 2;
 
-            color: activeFocus ? "#FFFFFF" : "#000000";
+            color: activeFocus ? "#60a0e0" : "#000000";
 
             opacity: activeFocus ? 1.0 : 0.7;
+
+            onUpPressed: {
+                googleplayButton.setFocus();
+            }
 
             onKeyPressed: {
                 if (key === "Select" || key === "Right") {
@@ -91,8 +187,12 @@ Application {
             favshowPlayer.visible = true;
             favshowPlayer.title = catalogView.model.get(catalogView.currentIndex).title;
             log("Start watching URL - ", catalogView.model.get(catalogView.currentIndex).id);
-            favshowPlayer.playVideoById(catalogView.model.get(catalogView.currentIndex).duration);
+            favshowPlayer.playVideoById(catalogView.model.get(catalogView.currentIndex).trailer);
         }
+
+        onUpPressed: {
+                telegramButton.setFocus();
+            }
 
         onLeftPressed: {
             categoryMenu.setFocus();
@@ -141,18 +241,26 @@ Application {
             catalogTextUp.visible = false;
 
             var currentCatalogItem = model.get(catalogView.currentIndex);
+            catalogPage.id = currentCatalogItem.id;
             catalogPage.title = currentCatalogItem.title;
-            catalogPage.year = currentCatalogItem.year;
+            catalogPage.titleSeason = currentCatalogItem.titleSeason;
             catalogPage.favshowRating = currentCatalogItem.favshowRating;
-            catalogPage.kpRating = currentCatalogItem.kpRating;
-            catalogPage.imdbRating = currentCatalogItem.imdbRating;
-            catalogPage.season = currentCatalogItem.season;
+            catalogPage.flagStatus = currentCatalogItem.flagStatus;
+            catalogPage.actors = currentCatalogItem.actors;
+            catalogPage.numSeries = currentCatalogItem.numSeries;
             catalogPage.poster = currentCatalogItem.poster;
             catalogPage.duration = currentCatalogItem.duration;
             catalogPage.whenontv = currentCatalogItem.whenontv;
             favshow.background = currentCatalogItem.background;
             catalogPage.restrict = currentCatalogItem.restrict;
             catalogPage.description = currentCatalogItem.description;
+            catalogPage.releaseDate = currentCatalogItem.releaseDate;
+            catalogPage.genre = currentCatalogItem.genre;
+            catalogPage.country = currentCatalogItem.country;
+            catalogPage.advertise = currentCatalogItem.advertise;
+            catalogPage.serList = currentCatalogItem.serList;
+            catalogPage.serDur = currentCatalogItem.serDur;
+            catalogPage.tvChannel = currentCatalogItem.tvChannel;
             backgroundImage.visible = true;
             catalogPage.visible = true;
         }
@@ -173,6 +281,22 @@ Application {
         anchors.centerIn: mainWindow;
 
         visible: catalogView.loading;
+    }
+
+    GooglePlayView {
+        id: googlePlayView;
+
+        visible: false;
+
+        anchors.centerIn: mainWindow;
+    }
+
+    TelegramView {
+        id: telegramView;
+
+        visible: false;
+
+        anchors.centerIn: mainWindow;
     }
 
     FavshowPlayer {

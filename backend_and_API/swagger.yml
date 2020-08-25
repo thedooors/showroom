@@ -1,8 +1,8 @@
 swagger: "2.0"
 info:
-  description: REST API для приложения StingrayShows
+  description: REST API для приложения Showroom
   version: "1.0.0"
-  title: StingrayShows
+  title: Showroom API
 consumes:
   - application/json
 produces:
@@ -17,8 +17,8 @@ paths:
       operationId: shows.read_all
       tags:
         - Shows
-      summary: Read the entire set of shows, sorted by Title
-      description: Read the entire set of shows, sorted by Title
+      summary: Read the entire set of shows, sorted by Date of Creating
+      description: Read the entire set of shows, sorted by Date of Creating
       responses:
         200:
           description: Successfully read shows set operation
@@ -29,37 +29,37 @@ paths:
                 content_id:
                   type: string
                   description: Id of the content
-                year:
-                  type: string
-                  description: Russian Name of the content (NOT YEAR!)
                 title:
                   type: string
-                  description: English Title of the content
-                restrict:
+                  description: Russian Name of the tv series
+                title_season:
+                  type: string
+                  description: Title with season of the content
+                restricty:
                   type: string
                   description: Restriction age of the content
                 selectservice:
                   type: string
                   description: Streaming service of the content
-                season:
+                num_of_series:
                   type: string
                   description: Season/Series of the content
-                duration:
+                trailer:
                   type: string
-                  description: Trailer URL (NOT DURATION!) of the content
-                rating:
+                  description: Trailer URL  of the content
+                flag_status:
                   type: string
-                  description: Rating of the content
+                  description: Release statusof the content
                 kp_rating:
                   type: string
-                  description: Statement - PREMIERE, FREEZE, END, NOW (NOT RATING!) of the content
-                imdb_rating:
+                  description: KPRating of the content
+                actors:
                   type: string
-                  description: Actors (NOT RATING!) of the tv show
+                  description: Actors of the tv show
                 description:
                   type: string
                   description: Description of the content
-                background:
+                advertise:
                   type: string
                   description: Advertisement Background of the content
                 poster:
@@ -68,6 +68,30 @@ paths:
                 whenontv:
                   type: string
                   description: When show will be on tv or schedule of the content
+                release_date:
+                  type: string
+                  description: Release date of the content
+                country:
+                  type: string
+                  description: Country of the content
+                genre:
+                  type: string
+                  description: Genre of the content
+                serial_duration:
+                  type: string
+                  description: SerialDuration of the content
+                series_list:
+                  type: string
+                  description: List of series of the content
+                tv_channel:
+                  type: string
+                  description: Produce channel of series of the content
+                temp_col1:
+                  type: string
+                  description: Some addition text of the content if needed
+                temp_col2:
+                  type: string
+                  description: Also Some addition text of the content if needed
                 timestamp:
                   type: string
                   description: Creation/Update timestamp of the content
@@ -86,45 +110,69 @@ paths:
           schema:
             type: object
             properties:
-              year:
-                type: string
-                description: Year of content to create
               title:
                 type: string
+                description: MinTitle of content to create
+              title_season:
+                type: string
                 description: Title of content to create
-              restrict:
+              restricty:
                 type: string
                 description: Restriction age of the content
               selectservice:
                 type: string
                 description: Streaming service of the content
-              season:
+              num_of_series:
                 type: string
                 description: Season of the content
-              duration:
+              trailer:
                 type: string
-                description: duration of the content
-              rating:
+                description: trailer of the content
+              flag_status:
                 type: string
-                description: rating of the content
+                description: flag_status of the content
               kp_rating:
                 type: string
                 description: kp_rating of the content
-              imdb_rating:
+              actors:
                 type: string
-                description: imdb_rating of the content
+                description: actors of the content
               description:
                 type: string
                 description: description of the content
-              background:
+              advertise:
                 type: string
-                description: background of the content
+                description: advertise of the content
               poster:
                 type: string
                 description: poster of the content
               whenontv:
                 type: string
-                description: whenontv of the content
+                description: When show will be on tv or schedule of the content
+              release_date:
+                type: string
+                description: Release date of the content
+              country:
+                type: string
+                description: Country of the content
+              genre:
+                type: string
+                description: Genre of the content
+              serial_duration:
+                type: string
+                description: SerialDuration of the content
+              series_list:
+                type: string
+                description: List of series of the content
+              tv_channel:
+                type: string
+                description: Produce channel of series of the content
+              temp_col1:
+                type: string
+                description: Some addition text of the content if needed
+              temp_col2:
+                type: string
+                description: Also Some addition text of the content if needed
       responses:
         201:
           description: Successfully created content
@@ -133,45 +181,69 @@ paths:
               content_id:
                 type: string
                 description: Id of the content
-              year:
-                type: string
-                description: Year of the content
               title:
                 type: string
+                description: MinTitle of the content
+              title_season:
+                type: string
                 description: Title of the content
-              restrict:
+              restricty:
                 type: string
                 description: Restriction age of the content
               selectservice:
                 type: string
                 description: Streaming service of the content
-              season:
+              num_of_series:
                 type: string
                 description: Season of the content
-              duration:
+              trailer:
                 type: string
-                description: duration of the content
-              rating:
+                description: trailer of the content
+              flag_status:
                 type: string
-                description: rating of the content
+                description: flag_status of the content
               kp_rating:
                 type: string
                 description: kp_rating of the content
-              imdb_rating:
+              actors:
                 type: string
-                description: imdb_rating of the content
+                description: actors of the content
               description:
                 type: string
                 description: description of the content
-              background:
+              advertise:
                 type: string
-                description: background of the content
+                description: advertise of the content
               poster:
                 type: string
                 description: poster of the content
               whenontv:
                 type: string
-                description: whenontv of the content
+                description: When show will be on tv or schedule of the content
+              release_date:
+                type: string
+                description: Release date of the content
+              country:
+                type: string
+                description: Country of the content
+              genre:
+                type: string
+                description: Genre of the content
+              serial_duration:
+                type: string
+                description: SerialDuration of the content
+              series_list:
+                type: string
+                description: List of series of the content
+              tv_channel:
+                type: string
+                description: Produce channel of series of the content
+              temp_col1:
+                type: string
+                description: Some addition text of the content if needed
+              temp_col2:
+                type: string
+                description: Also Some addition text of the content if needed
               timestamp:
                 type: string
                 description: Creation/Update timestamp of the content record
@@ -198,45 +270,69 @@ paths:
               content_id:
                 type: string
                 description: Id of the content
-              year:
-                type: string
-                description: Year of the content
               title:
                 type: string
+                description: MinTitle of the content
+              title_season:
+                type: string
                 description: Title of the content
-              restrict:
+              restricty:
                 type: string
                 description: Restriction age of the content
               selectservice:
                 type: string
                 description: Streaming service of the content
-              season:
+              num_of_series:
                 type: string
                 description: Season of the content
-              duration:
+              trailer:
                 type: string
-                description: duration of the content
-              rating:
+                description: trailer of the content
+              flag_status:
                 type: string
-                description: rating of the content
+                description: flag_status of the content
               kp_rating:
                 type: string
                 description: kp_rating of the content
-              imdb_rating:
+              actors:
                 type: string
-                description: imdb_rating of the content
+                description: actors of the content
               description:
                 type: string
                 description: description of the content
-              background:
+              advertise:
                 type: string
-                description: background of the content
+                description: advertise of the content
               poster:
                 type: string
                 description: poster of the content
               whenontv:
                 type: string
-                description: whenontv of the content
+                description: When show will be on tv or schedule of the content
+              release_date:
+                type: string
+                description: Release date of the content
+              country:
+                type: string
+                description: Country of the content
+              genre:
+                type: string
+                description: Genre of the content
+              serial_duration:
+                type: string
+                description: SerialDuration of the content
+              series_list:
+                type: string
+                description: List of series of the content
+              tv_channel:
+                type: string
+                description: Produce channel of series of the content
+              temp_col1:
+                type: string
+                description: Some addition text of the content if needed
+              temp_col2:
+                type: string
+                description: Also Some addition text of the content if needed
               timestamp:
                 type: string
                 description: Creation/Update timestamp of the content record
@@ -258,45 +354,69 @@ paths:
           schema:
             type: object
             properties:
-              year:
-                type: string
-                description: Year of the content
               title:
                 type: string
+                description: MinTitle of the content
+              title_season:
+                type: string
                 description: Title of the content
-              restrict:
+              restricty:
                 type: string
                 description: Restriction age of the content
               selectservice:
                 type: string
                 description: Streaming service of the content
-              season:
+              num_of_series:
                 type: string
                 description: Season of the content
-              duration:
+              trailer:
                 type: string
-                description: duration of the content
-              rating:
+                description: trailer of the content
+              flag_status:
                 type: string
-                description: rating of the content
+                description: flag_status of the content
               kp_rating:
                 type: string
                 description: kp_rating of the content
-              imdb_rating:
+              actors:
                 type: string
-                description: imdb_rating of the content
+                description: actors of the content
               description:
                 type: string
                 description: description of the content
-              background:
+              advertise:
                 type: string
-                description: background of the content
+                description: advertise of the content
               poster:
                 type: string
                 description: poster of the content
               whenontv:
                 type: string
-                description: whenontv of the content
+                description: When show will be on tv or schedule of the content
+              release_date:
+                type: string
+                description: Release date of the content
+              country:
+                type: string
+                description: Country of the content
+              genre:
+                type: string
+                description: Genre of the content
+              serial_duration:
+                type: string
+                description: SerialDuration of the content
+              series_list:
+                type: string
+                description: List of series of the content
+              tv_channel:
+                type: string
+                description: Produce channel of series of the content
+              temp_col1:
+                type: string
+                description: Some addition text of the content if needed
+              temp_col2:
+                type: string
+                description: Also Some addition text of the content if needed
       responses:
         200:
           description: Successfully updated content
@@ -305,45 +425,69 @@ paths:
               content_id:
                 type: string
                 description: Id of the content in the database
-              year:
-                type: string
-                description: Year of the content
               title:
                 type: string
+                description: MinTitle of the content
+              title_season:
+                type: string
                 description: Title of the content
-              restrict:
+              restricty:
                 type: string
                 description: Restriction age of the content
               selectservice:
                 type: string
                 description: Streaming service of the content
-              season:
+              num_of_series:
                 type: string
                 description: Season of the content
-              duration:
+              trailer:
                 type: string
-                description: duration of the content
-              rating:
+                description: trailer of the content
+              flag_status:
                 type: string
-                description: rating of the content
+                description: flag_status of the content
               kp_rating:
                 type: string
                 description: kp_rating of the content
-              imdb_rating:
+              actors:
                 type: string
-                description: imdb_rating of the content
+                description: actors of the content
               description:
                 type: string
                 description: description of the content
-              background:
+              advertise:
                 type: string
-                description: background of the content
+                description: advertise of the content
               poster:
                 type: string
                 description: poster of the content
               whenontv:
                 type: string
-                description: whenontv of the content
+                description: When show will be on tv or schedule of the content
+              release_date:
+                type: string
+                description: Release date of the content
+              country:
+                type: string
+                description: Country of the content
+              genre:
+                type: string
+                description: Genre of the content
+              serial_duration:
+                type: string
+                description: SerialDuration of the content
+              series_list:
+                type: string
+                description: List of series of the content
+              tv_channel:
+                type: string
+                description: Produce channel of series of the content
+              temp_col1:
+                type: string
+                description: Some addition text of the content if needed
+              temp_col2:
+                type: string
+                description: Also Some addition text of the content if needed
               timestamp:
                 type: string
                 description: Creation/Update timestamp of the content record
@@ -364,13 +508,19 @@ paths:
         200:
           description: Successfully deleted a content
   
-  /fx:
+  /services/{service_name}:
     get:
-      operationId: shows.read_fx
+      operationId: shows.read_service
       tags:
-        - FX
-      summary: Read the entire set of FX TV shows, sorted by Title
-      description: Read the entire set of FX TV shows, sorted by Title
+        - Service
+      parameters:
+        - name: service_name
+          in: path
+          description: Name of streaming service
+          type: string
+          required: True
+      summary: Read the entire content of streaming service 
+      description: Read the entire set of shows. Available service names - "FX", "NETFLIX", "AMC", "HBO", "AMAZON", "SHOWTIME", "DISNEY", "APPLE-TV", "THE-CW", "ABC", "SYFY", "BBC", "CBS", "FOX", "HULU"
       responses:
         200:
           description: Successfully read shows set operation
@@ -381,37 +531,37 @@ paths:
                 content_id:
                   type: string
                   description: Id of the content
-                year:
-                  type: string
-                  description: Russian Name of the content (NOT YEAR!)
                 title:
                   type: string
-                  description: English Title of the content
-                restrict:
+                  description: Russian Name of the tv series
+                title_season:
+                  type: string
+                  description: Title with season of the content
+                restricty:
                   type: string
                   description: Restriction age of the content
                 selectservice:
                   type: string
                   description: Streaming service of the content
-                season:
+                num_of_series:
                   type: string
                   description: Season/Series of the content
-                duration:
+                trailer:
                   type: string
-                  description: Trailer URL (NOT DURATION!) of the content
-                rating:
+                  description: Trailer URL  of the content
+                flag_status:
                   type: string
-                  description: Rating of the content
+                  description: Release statusof the content
                 kp_rating:
                   type: string
-                  description: Statement - PREMIERE, FREEZE, END, NOW (NOT RATING!) of the content
-                imdb_rating:
+                  description: KPRating of the content
+                actors:
                   type: string
-                  description: Actors (NOT RATING!) of the tv show
+                  description: Actors of the tv show
                 description:
                   type: string
                   description: Description of the content
-                background:
+                advertise:
                   type: string
                   description: Advertisement Background of the content
                 poster:
@@ -420,6 +570,30 @@ paths:
                 whenontv:
                   type: string
                   description: When show will be on tv or schedule of the content
+                release_date:
+                  type: string
+                  description: Release date of the content
+                country:
+                  type: string
+                  description: Country of the content
+                genre:
+                  type: string
+                  description: Genre of the content
+                serial_duration:
+                  type: string
+                  description: SerialDuration of the content
+                series_list:
+                  type: string
+                  description: List of series of the content
+                tv_channel:
+                  type: string
+                  description: Produce channel of series of the content
+                temp_col1:
+                  type: string
+                  description: Some addition text of the content if needed
+                temp_col2:
+                  type: string
+                  description: Also Some addition text of the content if needed
                 timestamp:
                   type: string
                   description: Creation/Update timestamp of the content
@@ -440,37 +614,37 @@ paths:
                 content_id:
                   type: string
                   description: Id of the content
-                year:
-                  type: string
-                  description: Russian Name of the content (NOT YEAR!)
                 title:
                   type: string
-                  description: English Title of the content
-                restrict:
+                  description: Russian Name of the tv series
+                title_season:
+                  type: string
+                  description: Title with season of the content
+                restricty:
                   type: string
                   description: Restriction age of the content
                 selectservice:
                   type: string
                   description: Streaming service of the content
-                season:
+                num_of_series:
                   type: string
                   description: Season/Series of the content
-                duration:
+                trailer:
                   type: string
-                  description: Trailer URL (NOT DURATION!) of the content
-                rating:
+                  description: Trailer URL  of the content
+                flag_status:
                   type: string
-                  description: Rating of the content
+                  description: Release statusof the content Statement - PREMIERE, FREEZE, END, NOW
                 kp_rating:
                   type: string
-                  description: Statement - PREMIERE, FREEZE, END, NOW (NOT RATING!) of the content
-                imdb_rating:
+                  description: RATING of the content
+                actors:
                   type: string
-                  description: Actors (NOT RATING!) of the tv show
+                  description: Actors of the tv show
                 description:
                   type: string
                   description: Description of the content
-                background:
+                advertise:
                   type: string
                   description: Advertisement Background of the content
                 poster:
@@ -479,837 +653,340 @@ paths:
                 whenontv:
                   type: string
                   description: When show will be on tv or schedule of the content
-                timestamp:
+                release_date:
                   type: string
-                  description: Creation/Update timestamp of the content
-  
-  /netflix:
-    get:
-      operationId: shows.read_netflix
-      tags:
-        - Netflix
-      summary: Read the entire set of netflix TV shows, sorted by Title
-      description: Read the entire set of netflix TV shows, sorted by Title
-      responses:
-        200:
-          description: Successfully read shows set operation
-          schema:
-            type: array
-            items:
-              properties:
-                content_id:
+                  description: Release date of the content
+                country:
                   type: string
-                  description: Id of the content
-                year:
+                  description: Country of the content
+                genre:
                   type: string
-                  description: Russian Name of the content (NOT YEAR!)
-                title:
+                  description: Genre of the content
+                serial_duration:
                   type: string
-                  description: English Title of the content
-                restrict:
+                  description: SerialDuration of the content
+                series_list:
                   type: string
-                  description: Restriction age of the content
-                selectservice:
+                  description: List of series of the content
+                tv_channel:
                   type: string
-                  description: Streaming service of the content
-                season:
+                  description: Produce channel of series of the content
+                temp_col1:
                   type: string
-                  description: Season/Series of the content
-                duration:
+                  description: Some addition text of the content if needed
+                temp_col2:
                   type: string
-                  description: Trailer URL (NOT DURATION!) of the content
-                rating:
-                  type: string
-                  description: Rating of the content
-                kp_rating:
-                  type: string
-                  description: Statement - PREMIERE, FREEZE, END, NOW (NOT RATING!) of the content
-                imdb_rating:
-                  type: string
-                  description: Actors (NOT RATING!) of the tv show
-                description:
-                  type: string
-                  description: Description of the content
-                background:
-                  type: string
-                  description: Advertisement Background of the content
-                poster:
-                  type: string
-                  description: Poster of the content
-                whenontv:
-                  type: string
-                  description: When show will be on tv or schedule of the content
-                timestamp:
-                  type: string
-                  description: Creation/Update timestamp of the content
-  /hbogo:
-    get:
-      operationId: shows.read_hbogo
-      tags:
-        - HBO GO
-      summary: Read the entire set of hbogo TV shows, sorted by Title
-      description: Read the entire set of hbogo TV shows, sorted by Title
-      responses:
-        200:
-          description: Successfully read shows set operation
-          schema:
-            type: array
-            items:
-              properties:
-                content_id:
-                  type: string
-                  description: Id of the content
-                year:
-                  type: string
-                  description: Russian Name of the content (NOT YEAR!)
-                title:
-                  type: string
-                  description: English Title of the content
-                restrict:
-                  type: string
-                  description: Restriction age of the content
-                selectservice:
-                  type: string
-                  description: Streaming service of the content
-                season:
-                  type: string
-                  description: Season/Series of the content
-                duration:
-                  type: string
-                  description: Trailer URL (NOT DURATION!) of the content
-                rating:
-                  type: string
-                  description: Rating of the content
-                kp_rating:
-                  type: string
-                  description: Statement - PREMIERE, FREEZE, END, NOW (NOT RATING!) of the content
-                imdb_rating:
-                  type: string
-                  description: Actors (NOT RATING!) of the tv show
-                description:
-                  type: string
-                  description: Description of the content
-                background:
-                  type: string
-                  description: Advertisement Background of the content
-                poster:
-                  type: string
-                  description: Poster of the content
-                whenontv:
-                  type: string
-                  description: When show will be on tv or schedule of the content
-                timestamp:
-                  type: string
-                  description: Creation/Update timestamp of the content
-  /amazon:
-    get:
-      operationId: shows.read_amazon
-      tags:
-        - Amazon Prime
-      summary: Read the entire set of amazon TV shows, sorted by Title
-      description: Read the entire set of amazon TV shows, sorted by Title
-      responses:
-        200:
-          description: Successfully read shows set operation
-          schema:
-            type: array
-            items:
-              properties:
-                content_id:
-                  type: string
-                  description: Id of the content
-                year:
-                  type: string
-                  description: Russian Name of the content (NOT YEAR!)
-                title:
-                  type: string
-                  description: English Title of the content
-                restrict:
-                  type: string
-                  description: Restriction age of the content
-                selectservice:
-                  type: string
-                  description: Streaming service of the content
-                season:
-                  type: string
-                  description: Season/Series of the content
-                duration:
-                  type: string
-                  description: Trailer URL (NOT DURATION!) of the content
-                rating:
-                  type: string
-                  description: Rating of the content
-                kp_rating:
-                  type: string
-                  description: Statement - PREMIERE, FREEZE, END, NOW (NOT RATING!) of the content
-                imdb_rating:
-                  type: string
-                  description: Actors (NOT RATING!) of the tv show
-                description:
-                  type: string
-                  description: Description of the content
-                background:
-                  type: string
-                  description: Advertisement Background of the content
-                poster:
-                  type: string
-                  description: Poster of the content
-                whenontv:
-                  type: string
-                  description: When show will be on tv or schedule of the content
-                timestamp:
-                  type: string
-                  description: Creation/Update timestamp of the content
-  /amc:
-    get:
-      operationId: shows.read_amc
-      tags:
-        - AMC
-      summary: Read the entire set of amc TV shows, sorted by Title
-      description: Read the entire set of amc TV shows, sorted by Title
-      responses:
-        200:
-          description: Successfully read shows set operation
-          schema:
-            type: array
-            items:
-              properties:
-                content_id:
-                  type: string
-                  description: Id of the content
-                year:
-                  type: string
-                  description: Russian Name of the content (NOT YEAR!)
-                title:
-                  type: string
-                  description: English Title of the content
-                restrict:
-                  type: string
-                  description: Restriction age of the content
-                selectservice:
-                  type: string
-                  description: Streaming service of the content
-                season:
-                  type: string
-                  description: Season/Series of the content
-                duration:
-                  type: string
-                  description: Trailer URL (NOT DURATION!) of the content
-                rating:
-                  type: string
-                  description: Rating of the content
-                kp_rating:
-                  type: string
-                  description: Statement - PREMIERE, FREEZE, END, NOW (NOT RATING!) of the content
-                imdb_rating:
-                  type: string
-                  description: Actors (NOT RATING!) of the tv show
-                description:
-                  type: string
-                  description: Description of the content
-                background:
-                  type: string
-                  description: Advertisement Background of the content
-                poster:
-                  type: string
-                  description: Poster of the content
-                whenontv:
-                  type: string
-                  description: When show will be on tv or schedule of the content
-                timestamp:
-                  type: string
-                  description: Creation/Update timestamp of the content
-  /hulu:
-    get:
-      operationId: shows.read_hulu
-      tags:
-        - Hulu
-      summary: Read the entire set of hulu TV shows, sorted by Title
-      description: Read the entire set of hulu TV shows, sorted by Title
-      responses:
-        200:
-          description: Successfully read shows set operation
-          schema:
-            type: array
-            items:
-              properties:
-                content_id:
-                  type: string
-                  description: Id of the content
-                year:
-                  type: string
-                  description: Russian Name of the content (NOT YEAR!)
-                title:
-                  type: string
-                  description: English Title of the content
-                restrict:
-                  type: string
-                  description: Restriction age of the content
-                selectservice:
-                  type: string
-                  description: Streaming service of the content
-                season:
-                  type: string
-                  description: Season/Series of the content
-                duration:
-                  type: string
-                  description: Trailer URL (NOT DURATION!) of the content
-                rating:
-                  type: string
-                  description: Rating of the content
-                kp_rating:
-                  type: string
-                  description: Statement - PREMIERE, FREEZE, END, NOW (NOT RATING!) of the content
-                imdb_rating:
-                  type: string
-                  description: Actors (NOT RATING!) of the tv show
-                description:
-                  type: string
-                  description: Description of the content
-                background:
-                  type: string
-                  description: Advertisement Background of the content
-                poster:
-                  type: string
-                  description: Poster of the content
-                whenontv:
-                  type: string
-                  description: When show will be on tv or schedule of the content
-                timestamp:
-                  type: string
-                  description: Creation/Update timestamp of the content
-  /showtime:
-    get:
-      operationId: shows.read_showtime
-      tags:
-        - Showtime
-      summary: Read the entire set of showtime TV shows, sorted by Title
-      description: Read the entire set of showtime TV shows, sorted by Title
-      responses:
-        200:
-          description: Successfully read shows set operation
-          schema:
-            type: array
-            items:
-              properties:
-                content_id:
-                  type: string
-                  description: Id of the content
-                year:
-                  type: string
-                  description: Russian Name of the content (NOT YEAR!)
-                title:
-                  type: string
-                  description: English Title of the content
-                restrict:
-                  type: string
-                  description: Restriction age of the content
-                selectservice:
-                  type: string
-                  description: Streaming service of the content
-                season:
-                  type: string
-                  description: Season/Series of the content
-                duration:
-                  type: string
-                  description: Trailer URL (NOT DURATION!) of the content
-                rating:
-                  type: string
-                  description: Rating of the content
-                kp_rating:
-                  type: string
-                  description: Statement - PREMIERE, FREEZE, END, NOW (NOT RATING!) of the content
-                imdb_rating:
-                  type: string
-                  description: Actors (NOT RATING!) of the tv show
-                description:
-                  type: string
-                  description: Description of the content
-                background:
-                  type: string
-                  description: Advertisement Background of the content
-                poster:
-                  type: string
-                  description: Poster of the content
-                whenontv:
-                  type: string
-                  description: When show will be on tv or schedule of the content
-                timestamp:
-                  type: string
-                  description: Creation/Update timestamp of the content
-  /disney:
-    get:
-      operationId: shows.read_disney
-      tags:
-        - Disney Plus
-      summary: Read the entire set of disney TV shows, sorted by Title
-      description: Read the entire set of disney TV shows, sorted by Title
-      responses:
-        200:
-          description: Successfully read shows set operation
-          schema:
-            type: array
-            items:
-              properties:
-                content_id:
-                  type: string
-                  description: Id of the content
-                year:
-                  type: string
-                  description: Russian Name of the content (NOT YEAR!)
-                title:
-                  type: string
-                  description: English Title of the content
-                restrict:
-                  type: string
-                  description: Restriction age of the content
-                selectservice:
-                  type: string
-                  description: Streaming service of the content
-                season:
-                  type: string
-                  description: Season/Series of the content
-                duration:
-                  type: string
-                  description: Trailer URL (NOT DURATION!) of the content
-                rating:
-                  type: string
-                  description: Rating of the content
-                kp_rating:
-                  type: string
-                  description: Statement - PREMIERE, FREEZE, END, NOW (NOT RATING!) of the content
-                imdb_rating:
-                  type: string
-                  description: Actors (NOT RATING!) of the tv show
-                description:
-                  type: string
-                  description: Description of the content
-                background:
-                  type: string
-                  description: Advertisement Background of the content
-                poster:
-                  type: string
-                  description: Poster of the content
-                whenontv:
-                  type: string
-                  description: When show will be on tv or schedule of the content
-                timestamp:
-                  type: string
-                  description: Creation/Update timestamp of the content
-  /apple:
-    get:
-      operationId: shows.read_apple
-      tags:
-        - Apple TV
-      summary: Read the entire set of apple TV shows, sorted by Title
-      description: Read the entire set of apple TV shows, sorted by Title
-      responses:
-        200:
-          description: Successfully read shows set operation
-          schema:
-            type: array
-            items:
-              properties:
-                content_id:
-                  type: string
-                  description: Id of the content
-                year:
-                  type: string
-                  description: Russian Name of the content (NOT YEAR!)
-                title:
-                  type: string
-                  description: English Title of the content
-                restrict:
-                  type: string
-                  description: Restriction age of the content
-                selectservice:
-                  type: string
-                  description: Streaming service of the content
-                season:
-                  type: string
-                  description: Season/Series of the content
-                duration:
-                  type: string
-                  description: Trailer URL (NOT DURATION!) of the content
-                rating:
-                  type: string
-                  description: Rating of the content
-                kp_rating:
-                  type: string
-                  description: Statement - PREMIERE, FREEZE, END, NOW (NOT RATING!) of the content
-                imdb_rating:
-                  type: string
-                  description: Actors (NOT RATING!) of the tv show
-                description:
-                  type: string
-                  description: Description of the content
-                background:
-                  type: string
-                  description: Advertisement Background of the content
-                poster:
-                  type: string
-                  description: Poster of the content
-                whenontv:
-                  type: string
-                  description: When show will be on tv or schedule of the content
-                timestamp:
-                  type: string
-                  description: Creation/Update timestamp of the content
-  /cw:
-    get:
-      operationId: shows.read_cw
-      tags:
-        - CW
-      summary: Read the entire set of cw TV shows, sorted by Title
-      description: Read the entire set of cw TV shows, sorted by Title
-      responses:
-        200:
-          description: Successfully read shows set operation
-          schema:
-            type: array
-            items:
-              properties:
-                content_id:
-                  type: string
-                  description: Id of the content
-                year:
-                  type: string
-                  description: Russian Name of the content (NOT YEAR!)
-                title:
-                  type: string
-                  description: English Title of the content
-                restrict:
-                  type: string
-                  description: Restriction age of the content
-                selectservice:
-                  type: string
-                  description: Streaming service of the content
-                season:
-                  type: string
-                  description: Season/Series of the content
-                duration:
-                  type: string
-                  description: Trailer URL (NOT DURATION!) of the content
-                rating:
-                  type: string
-                  description: Rating of the content
-                kp_rating:
-                  type: string
-                  description: Statement - PREMIERE, FREEZE, END, NOW (NOT RATING!) of the content
-                imdb_rating:
-                  type: string
-                  description: Actors (NOT RATING!) of the tv show
-                description:
-                  type: string
-                  description: Description of the content
-                background:
-                  type: string
-                  description: Advertisement Background of the content
-                poster:
-                  type: string
-                  description: Poster of the content
-                whenontv:
-                  type: string
-                  description: When show will be on tv or schedule of the content
-                timestamp:
-                  type: string
-                  description: Creation/Update timestamp of the content
-  /others:
-    get:
-      operationId: shows.read_others
-      tags:
-        - Others
-      summary: Read the entire set of others TV shows, sorted by Title
-      description: Read the entire set of others TV shows, sorted by Title
-      responses:
-        200:
-          description: Successfully read shows set operation
-          schema:
-            type: array
-            items:
-              properties:
-                content_id:
-                  type: string
-                  description: Id of the content
-                year:
-                  type: string
-                  description: Russian Name of the content (NOT YEAR!)
-                title:
-                  type: string
-                  description: English Title of the content
-                restrict:
-                  type: string
-                  description: Restriction age of the content
-                selectservice:
-                  type: string
-                  description: Streaming service of the content
-                season:
-                  type: string
-                  description: Season/Series of the content
-                duration:
-                  type: string
-                  description: Trailer URL (NOT DURATION!) of the content
-                rating:
-                  type: string
-                  description: Rating of the content
-                kp_rating:
-                  type: string
-                  description: Statement - PREMIERE, FREEZE, END, NOW (NOT RATING!) of the content
-                imdb_rating:
-                  type: string
-                  description: Actors (NOT RATING!) of the tv show
-                description:
-                  type: string
-                  description: Description of the content
-                background:
-                  type: string
-                  description: Advertisement Background of the content
-                poster:
-                  type: string
-                  description: Poster of the content
-                whenontv:
-                  type: string
-                  description: When show will be on tv or schedule of the content
-                timestamp:
-                  type: string
-                  description: Creation/Update timestamp of the content
-  /abc:
-    get:
-      operationId: shows.read_abc
-      tags:
-        - ABC
-      summary: Read the entire set of abc TV shows, sorted by Title
-      description: Read the entire set of abc TV shows, sorted by Title
-      responses:
-        200:
-          description: Successfully read shows set operation
-          schema:
-            type: array
-            items:
-              properties:
-                content_id:
-                  type: string
-                  description: Id of the content
-                year:
-                  type: string
-                  description: Russian Name of the content (NOT YEAR!)
-                title:
-                  type: string
-                  description: English Title of the content
-                restrict:
-                  type: string
-                  description: Restriction age of the content
-                selectservice:
-                  type: string
-                  description: Streaming service of the content
-                season:
-                  type: string
-                  description: Season/Series of the content
-                duration:
-                  type: string
-                  description: Trailer URL (NOT DURATION!) of the content
-                rating:
-                  type: string
-                  description: Rating of the content
-                kp_rating:
-                  type: string
-                  description: Statement - PREMIERE, FREEZE, END, NOW (NOT RATING!) of the content
-                imdb_rating:
-                  type: string
-                  description: Actors (NOT RATING!) of the tv show
-                description:
-                  type: string
-                  description: Description of the content
-                background:
-                  type: string
-                  description: Advertisement Background of the content
-                poster:
-                  type: string
-                  description: Poster of the content
-                whenontv:
-                  type: string
-                  description: When show will be on tv or schedule of the content
-                timestamp:
-                  type: string
-                  description: Creation/Update timestamp of the content
-  /cbs:
-    get:
-      operationId: shows.read_cbs
-      tags:
-        - CBS
-      summary: Read the entire set of cbs TV shows, sorted by Title
-      description: Read the entire set of cbs TV shows, sorted by Title
-      responses:
-        200:
-          description: Successfully read shows set operation
-          schema:
-            type: array
-            items:
-              properties:
-                content_id:
-                  type: string
-                  description: Id of the content
-                year:
-                  type: string
-                  description: Russian Name of the content (NOT YEAR!)
-                title:
-                  type: string
-                  description: English Title of the content
-                restrict:
-                  type: string
-                  description: Restriction age of the content
-                selectservice:
-                  type: string
-                  description: Streaming service of the content
-                season:
-                  type: string
-                  description: Season/Series of the content
-                duration:
-                  type: string
-                  description: Trailer URL (NOT DURATION!) of the content
-                rating:
-                  type: string
-                  description: Rating of the content
-                kp_rating:
-                  type: string
-                  description: Statement - PREMIERE, FREEZE, END, NOW (NOT RATING!) of the content
-                imdb_rating:
-                  type: string
-                  description: Actors (NOT RATING!) of the tv show
-                description:
-                  type: string
-                  description: Description of the content
-                background:
-                  type: string
-                  description: Advertisement Background of the content
-                poster:
-                  type: string
-                  description: Poster of the content
-                whenontv:
-                  type: string
-                  description: When show will be on tv or schedule of the content
-                timestamp:
-                  type: string
-                  description: Creation/Update timestamp of the content
-  /bbc:
-    get:
-      operationId: shows.read_bbc
-      tags:
-        - BBC
-      summary: Read the entire set of bbc TV shows, sorted by Title
-      description: Read the entire set of bbc TV shows, sorted by Title
-      responses:
-        200:
-          description: Successfully read shows set operation
-          schema:
-            type: array
-            items:
-              properties:
-                content_id:
-                  type: string
-                  description: Id of the content
-                year:
-                  type: string
-                  description: Russian Name of the content (NOT YEAR!)
-                title:
-                  type: string
-                  description: English Title of the content
-                restrict:
-                  type: string
-                  description: Restriction age of the content
-                selectservice:
-                  type: string
-                  description: Streaming service of the content
-                season:
-                  type: string
-                  description: Season/Series of the content
-                duration:
-                  type: string
-                  description: Trailer URL (NOT DURATION!) of the content
-                rating:
-                  type: string
-                  description: Rating of the content
-                kp_rating:
-                  type: string
-                  description: Statement - PREMIERE, FREEZE, END, NOW (NOT RATING!) of the content
-                imdb_rating:
-                  type: string
-                  description: Actors (NOT RATING!) of the tv show
-                description:
-                  type: string
-                  description: Description of the content
-                background:
-                  type: string
-                  description: Advertisement Background of the content
-                poster:
-                  type: string
-                  description: Poster of the content
-                whenontv:
-                  type: string
-                  description: When show will be on tv or schedule of the content
-                timestamp:
-                  type: string
-                  description: Creation/Update timestamp of the content
-  /scyfi:
-    get:
-      operationId: shows.read_scyfi
-      tags:
-        - SyFy
-      summary: Read the entire set of scyfi TV shows, sorted by Title
-      description: Read the entire set of scyfi TV shows, sorted by Title
-      responses:
-        200:
-          description: Successfully read shows set operation
-          schema:
-            type: array
-            items:
-              properties:
-                content_id:
-                  type: string
-                  description: Id of the content
-                year:
-                  type: string
-                  description: Russian Name of the content (NOT YEAR!)
-                title:
-                  type: string
-                  description: English Title of the content
-                restrict:
-                  type: string
-                  description: Restriction age of the content
-                selectservice:
-                  type: string
-                  description: Streaming service of the content
-                season:
-                  type: string
-                  description: Season/Series of the content
-                duration:
-                  type: string
-                  description: Trailer URL (NOT DURATION!) of the content
-                rating:
-                  type: string
-                  description: Rating of the content
-                kp_rating:
-                  type: string
-                  description: Statement - PREMIERE, FREEZE, END, NOW (NOT RATING!) of the content
-                imdb_rating:
-                  type: string
-                  description: Actors (NOT RATING!) of the tv show
-                description:
-                  type: string
-                  description: Description of the content
-                background:
-                  type: string
-                  description: Advertisement Background of the content
-                poster:
-                  type: string
-                  description: Poster of the content
-                whenontv:
-                  type: string
-                  description: When show will be on tv or schedule of the content
+                  description: Also Some addition text of the content if needed
                 timestamp:
                   type: string
                   description: Creation/Update timestamp of the content
 
+  /appusers/{usercode}:
+    get:
+      operationId: shows.get_appuser
+      tags:
+        - AppUsers
+      summary: Get app user info
+      description: Get app user info
+      parameters:
+        - name: usercode
+          in: path
+          description: Usercode of new user
+          type: string
+          required: True
+      responses:
+        200:
+          description: Successfully read of content
+          schema:
+            properties:
+              user_id:
+                type: string
+                description: Id of the user
+              usercode:
+                type: string
+                description: usercode of the user
+              waitlist:
+                type: string
+                description: Waitlist of the user
+              tg_col1:
+                type: string
+                description: Telegram dialog of the user
+              tg_col2:
+                type: string
+                description: Telegram dialog 2 of the user
+              regdate:
+                type: string
+                description: Date of User Registration
+              user_col1:
+                type: string
+                description: Info of the User
+              timestamp:
+                type: string
+                description: Creation/Update timestamp of the content record
+    post:
+      operationId: shows.create_new_appuser
+      tags:
+        - AppUsers
+      summary: Create new user by first run of app
+      description: Create new user by first run of app
+      parameters:
+        - name: usercode
+          in: path
+          description: Usercode of new user
+          type: string
+          required: True
+      responses:
+        201:
+          description: Successfully created content
+          schema:
+            properties:
+              user_id:
+                type: string
+                description: Id of the user
+              usercode:
+                type: string
+                description: usercode of the user
+              waitlist:
+                type: string
+                description: Waitlist of the user
+              tg_col1:
+                type: string
+                description: Telegram dialog of the user
+              tg_col2:
+                type: string
+                description: Telegram dialog 2 of the user
+              regdate:
+                type: string
+                description: Date of User Registration
+              user_col1:
+                type: string
+                description: Info of the User
+              timestamp:
+                type: string
+                description: Creation/Update timestamp of the content record
 
+  /shows/string_array/{string_array_waitlist}:
+    get:
+      operationId: shows.read_from_string_array
+      tags:
+        - Shows
+      summary: Read content from string array (from waitlist)
+      description: Read content from string array (from waitlist) - format list of IDs '1,2,3,4,5,6'
+      parameters:
+        - name: string_array_waitlist
+          in: path
+          description: string_array_waitlist of user (generated on app)
+          type: string
+          required: True
+      responses:
+        200:
+          description: Successfully read content from shows data operation
+          schema:
+            type: object
+            properties:
+              content_id:
+                type: string
+                description: Id of the content
+              title:
+                type: string
+                description: MinTitle of the content
+              title_season:
+                type: string
+                description: Title of the content
+              restricty:
+                type: string
+                description: Restriction age of the content
+              selectservice:
+                type: string
+                description: Streaming service of the content
+              num_of_series:
+                type: string
+                description: Season of the content
+              trailer:
+                type: string
+                description: trailer of the content
+              flag_status:
+                type: string
+                description: flag_status of the content
+              kp_rating:
+                type: string
+                description: kp_rating of the content
+              actors:
+                type: string
+                description: actors of the content
+              description:
+                type: string
+                description: description of the content
+              advertise:
+                type: string
+                description: advertise of the content
+              poster:
+                type: string
+                description: poster of the content
+              whenontv:
+                type: string
+                description: When show will be on tv or schedule of the content
+              release_date:
+                type: string
+                description: Release date of the content
+              country:
+                type: string
+                description: Country of the content
+              genre:
+                type: string
+                description: Genre of the content
+              serial_duration:
+                type: string
+                description: SerialDuration of the content
+              series_list:
+                type: string
+                description: List of series of the content
+              tv_channel:
+                type: string
+                description: Produce channel of series of the content
+              temp_col1:
+                type: string
+                description: Some addition text of the content if needed
+              temp_col2:
+                type: string
+                description: Also Some addition text of the content if needed
+              timestamp:
+                type: string
+                description: Creation/Update timestamp of the content record
 
+  /waitlists/{usercode}/{waitlist}:
+    post:
+      operationId: shows.create_new_waitlist
+      tags:
+        - Waitlists
+      summary: Update user waitlist
+      description: Update user waitlist
+      parameters:
+        - name: usercode
+          in: path
+          description: Usercode of user
+          type: string
+          required: True
+        - name: waitlist
+          in: path
+          description: Waitlist for update
+          type: string
+          required: True
+      responses:
+        201:
+          description: Successfully created content
+          schema:
+            properties:
+              user_id:
+                type: string
+                description: Id of the user
+              usercode:
+                type: string
+                description: usercode of the user
+              waitlist:
+                type: string
+                description: Waitlist of the user
+              tg_col1:
+                type: string
+                description: Telegram dialog of the user
+              tg_col2:
+                type: string
+                description: Telegram dialog 2 of the user
+              regdate:
+                type: string
+                description: Date of User Registration
+              user_col1:
+                type: string
+                description: Info of the User
+              timestamp:
+                type: string
+                description: Creation/Update timestamp of the content record
 
+  /waitlists/{usercode}:
+    get:
+      operationId: shows.get_waitlist
+      tags:
+        - Waitlists
+      summary: Read content from waitlist by usercode
+      description: Read content from waitlist by usercode
+      parameters:
+        - name: usercode
+          in: path
+          description: Usercode
+          type: string
+          required: True
+      responses:
+        200:
+          description: Successfully read content from shows data operation
+          schema:
+            type: object
+            properties:
+              content_id:
+                type: string
+                description: Id of the content
+              title:
+                type: string
+                description: MinTitle of the content
+              title_season:
+                type: string
+                description: Title of the content
+              restricty:
+                type: string
+                description: Restriction age of the content
+              selectservice:
+                type: string
+                description: Streaming service of the content
+              num_of_series:
+                type: string
+                description: Season of the content
+              trailer:
+                type: string
+                description: trailer of the content
+              flag_status:
+                type: string
+                description: flag_status of the content
+              kp_rating:
+                type: string
+                description: kp_rating of the content
+              actors:
+                type: string
+                description: actors of the content
+              description:
+                type: string
+                description: description of the content
+              advertise:
+                type: string
+                description: advertise of the content
+              poster:
+                type: string
+                description: poster of the content
+              whenontv:
+                type: string
+                description: When show will be on tv or schedule of the content
+              release_date:
+                type: string
+                description: Release date of the content
+              country:
+                type: string
+                description: Country of the content
+              genre:
+                type: string
+                description: Genre of the content
+              serial_duration:
+                type: string
+                description: SerialDuration of the content
+              series_list:
+                type: string
+                description: List of series of the content
+              tv_channel:
+                type: string
+                description: Produce channel of series of the content
+              temp_col1:
+                type: string
+                description: Some addition text of the content if needed
+              temp_col2:
+                type: string
+                description: Also Some addition text of the content if needed
+              timestamp:
+                type: string
+                description: Creation/Update timestamp of the content record
